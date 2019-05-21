@@ -1,0 +1,309 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make -f make_mac.mak'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'eagletmt/neco-ghc'
+on_ft = 'haskell'
+depends = 'deoplete.nvim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+hook_add = '''
+let g:neocomplcache_snippets_dir = '~/.config/nvim/snippets'
+let g:neosnippet#snippets_directory = '~/.config/nvim/snippets'
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+'''
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+
+[[plugins]]
+repo = 'thinca/vim-visualstar'
+
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'kana/vim-textobj-syntax'
+
+[[plugins]]
+repo = 'kana/vim-textobj-lastpat'
+
+[[plugins]]
+repo = 'kana/vim-textobj-indent'
+
+[[plugins]]
+repo = 'kana/vim-textobj-function'
+
+[[plugins]]
+repo = 'kana/vim-textobj-fold'
+
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+
+[[plugins]]
+repo = 'kana/vim-textobj-jabraces'
+
+[[plugins]]
+repo = 'vim-scripts/operator-user'
+
+[[plugins]]
+repo = 'vim-scripts/operator-replace'
+
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+
+[[plugins]]
+repo = 'vim-scripts/smartword'
+
+[[plugins]]
+repo = 'kana/vim-smartinput'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'vim-scripts/camelcasemotion'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'tpope/vim-abolish'
+
+[[plugins]]
+repo = 'tpope/vim-rails.git'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'tpope/vim-dispatch'
+
+[[plugins]]
+repo = 'vim-scripts/vcscommand.vim'
+
+[[plugins]]
+repo = 'h1mesuke/vim-alignta'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+
+[[plugins]]
+repo = 'gregsexton/gitv'
+
+[[plugins]]
+repo = 'simeji/winresizer'
+
+# [[plugins]]
+# repo = 'aklt/plantuml-syntax'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'thoughtbot/vim-rspec'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'noprompt/vim-yardoc'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = '5t111111/denite-rails'
+on_ft = 'ruby'
+hook_add = '''
+nnoremap <silent> <Leader>r :<C-u>Denite<Space>rails:dwim<Return>
+nnoremap <silent> <Leader>m :<C-u>Denite<Space>rails:model<Return>
+nnoremap <silent> <Leader>c :<C-u>Denite<Space>rails:controller<Return>
+nnoremap <silent> <Leader>v :<C-u>Denite<Space>rails:view<Return>
+nnoremap <silent> <Leader>h :<C-u>Denite<Space>rails:helper<Return>
+nnoremap <silent> <Leader>s :<C-u>Denite<Space>rails:spec<Return>
+'''
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+on_ft = 'coffee'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+depends = 'vim-airline'
+
+[[plugins]]
+on_ft = 'vue'
+repo = 'posva/vim-vue'
+
+[[plugins]]
+repo = 'janko-m/vim-test'
+on_ft = ['ruby', 'javascript']
+hook_add = '''
+nnoremap <silent> <C-\> :TestNearest -strategy=dispatch<CR>
+nnoremap <silent> t<C-n> :TestNearest -strategy=dispatch<CR>
+nnoremap <silent> t<C-f> :TestFile -strategy=dispatch<CR>
+'''
+
+[[plugins]]
+repo = 'neovimhaskell/haskell-vim'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'alx741/vim-hindent'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'parsonsmatt/intero-neovim'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+on_ft = 'haskell'
+
+# [[plugins]]
+# repo = 'rizzatti/dash.vim'
+
+# [[plugins]]
+# repo = 'tyru/open-browser.vim'
+
+[[plugins]]
+on_ft = 'typescript'
+repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+on_ft = 'typescript'
+repo = 'Quramy/tsuquyomi'
+
+[[plugins]]
+repo = 'sbdchd/neoformat'
+
+[[plugins]]
+repo = 'elmcast/elm-vim'
+on_ft = 'elm'
+
+[[plugins]]
+repo = 'ap/vim-buftabline'
+
+# [[plugins]]
+# repo = 'Shougo/vinarise.vim'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'AndrewRadev/splitjoin.vim'
+on_ft = 'go'
+
+# [[plugins]]
+# repo = 'SirVer/ultisnips'
+# on_ft = 'go'
+
+# [[plugins]]
+# repo = 'ctrlpvim/ctrlp.vim'
+# on_ft = 'go'
+#
+# [[plugins]]
+# repo = 'neomake/neomake'
+# on_ft = 'go'
+#
+# [[plugins]]
+# repo = 'sebdah/vim-delve'
+# on_ft = 'go'
+# hook_add = '''
+# let g:delve_backend = "native"
+# let g:delve_breakpoint_sign = "o"
+# '''
+
+[[plugins]]
+repo = 'lighttiger2505/gtags.vim'
+hook_add = '''
+" Options
+let g:Gtags_Auto_Map = 0
+let g:Gtags_OpenQuickfixWindow = 1
+" Keymap
+" Show definetion of function cousor word on quickfix
+nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+" Show reference of cousor word on quickfix
+nmap <silent> R :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+'''
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_add = '''
+let g:gen_tags#gtags_auto_gen = 1
+'''
+
+[[plugins]]
+repo = 'ozelentok/denite-gtags'
+
+[[plugins]]
+repo = 'w0rp/ale'
+on_ft = ['ruby']
+hook_add = '''
+let g:ale_linters = {
+    \ 'vue': ['tslint', 'tsserver'],
+    \ 'ruby': ['rufo'],
+    \ }
+let g:ale_fixers = {
+    \ 'ruby': ['rufo'],
+    \ }
+let g:ale_fix_on_save = 1
+'''
+
+[[plugins]]
+on_ft = 'dhall'
+repo = 'vmchale/dhall-vim'
+
+[[plugins]]
+on_ft = 'quickrun'
+repo = 'powerman/vim-plugin-AnsiEsc'
+
+[[plugins]]
+on_ft = 'markdown'
+repo = 'sorah/presen.vim'
