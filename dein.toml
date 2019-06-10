@@ -309,3 +309,7 @@ repo = 'powerman/vim-plugin-AnsiEsc'
 [[plugins]]
 on_ft = 'markdown'
 repo = 'sorah/presen.vim'
+
+[[plugins]]
+on_ft = 'slim'
+repo = 'slim-template/vim-slim'
