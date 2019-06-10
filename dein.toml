@@ -284,13 +284,15 @@ repo = 'ozelentok/denite-gtags'
 
 [[plugins]]
 repo = 'w0rp/ale'
-on_ft = ['ruby']
+on_ft = ['ruby', 'typescript']
 hook_add = '''
 let g:ale_linters = {
     \ 'vue': ['tslint', 'tsserver'],
     \ 'ruby': ['rufo'],
     \ }
 let g:ale_fixers = {
+    \ 'javascript': ['prettier'],
+    \ 'typescript': ['prettier'],
     \ 'ruby': ['rufo'],
     \ }
 let g:ale_fix_on_save = 1
