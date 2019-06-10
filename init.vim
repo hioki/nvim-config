@@ -188,7 +188,7 @@ nnoremap <silent> [SCRAMBLED]e :<C-u>NERDTree<CR>
 nnoremap <silent> [SCRAMBLED]d :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]/ :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]D :<C-u>Gvdiff<CR>
-nnoremap <silent> [SCRAMBLED]k :<C-u>DeniteProjectDir file_rec/git<CR>
+nnoremap <silent> [SCRAMBLED]k :<C-u>DeniteProjectDir file/rec<CR>
 nnoremap <silent> [SCRAMBLED]b :<C-u>Denite buffer<CR>
 nnoremap <silent> [SCRAMBLED]u :<C-u>DeniteCursorWord -buffer-name=gtags_def gtags_def<CR>
 
