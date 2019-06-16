@@ -140,6 +140,8 @@ nnoremap <silent> Y :<C-u>syntax sync fromstart<CR>
 nnoremap <silent> F :<C-u>NERDTree<CR>
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
+nnoremap <silent> <C-Left> :<C-u>cprevious<CR>
+nnoremap <silent> <C-Right> :<C-u>cnext<CR>
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
 " tagsジャンプの時に複数ある時は一覧表示
