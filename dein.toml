@@ -7,17 +7,19 @@ build = 'make -f make_mac.mak'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#max_menu_width = 180
 
-[[plugins]]
-repo = 'eagletmt/neco-ghc'
-on_ft = 'haskell'
-depends = 'deoplete.nvim'
+let g:go_bin_path = $HOME."/go/bin"
+'''
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+depends = 'neosnippet'
 hook_add = '''
 let g:neocomplcache_snippets_dir = '~/.config/nvim/snippets'
 let g:neosnippet#snippets_directory = '~/.config/nvim/snippets'
@@ -29,21 +31,155 @@ imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : 
 smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 '''
 
-[[plugins]]
-repo = 'Shougo/denite.nvim'
+# [[plugins]]
+# repo = 'Shougo/denite.nvim'
+# hook_add = '''
+# call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+# call denite#custom#var('file_rec', 'command', ['rg', '--files'])
+# call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
+# call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>', 'noremap')
+# call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>', 'noremap')
+# call denite#custom#var('grep', 'command', ['rg'])
+# '''
+#
+# [[plugins]]
+# repo = 'ozelentok/denite-gtags'
+# depends = 'denite.nvim'
+#
+# [[plugins]]
+# repo = '5t111111/denite-rails'
+# on_ft = 'ruby'
+# hook_add = '''
+# nnoremap <silent> <Leader>r :<C-u>Denite<Space>rails:dwim<Return>
+# nnoremap <silent> <Leader>m :<C-u>Denite<Space>rails:model<Return>
+# nnoremap <silent> <Leader>c :<C-u>Denite<Space>rails:controller<Return>
+# nnoremap <silent> <Leader>v :<C-u>Denite<Space>rails:view<Return>
+# nnoremap <silent> <Leader>h :<C-u>Denite<Space>rails:helper<Return>
+# nnoremap <silent> <Leader>s :<C-u>Denite<Space>rails:spec<Return>
+# '''
+# depends = 'denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
+hook_add = '''
+autocmd MyAutoCmd FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+autocmd MyAutoCmd FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+autocmd MyAutoCmd FileType unite nnoremap <silent> <buffer> <C-g> :q<CR>
+autocmd MyAutoCmd FileType unite inoremap <silent> <buffer> <C-g> <ESC>:q<CR>
+'''
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
+hook_add = '''
+call vimfiler#custom#profile('default', 'context', {
+      \ 'safe' : 0,
+      \ 'auto_expand' : 1,
+      \ 'parent' : 0,
+      \ })
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
+function! s:vimfiler_my_settings()
+  nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('vsplit')
+  nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('split')
+  nnoremap <silent><buffer><expr> t vimfiler#do_action('tabopen')
+  nunmap <buffer> <C-l>
+endfunction
+nnoremap <silent> fe :<C-u>VimFilerBufferDir -quit<CR>
+'''
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
+hook_add = '''
+let g:quickrun_config = {
+  \ "_" : {
+  \   "runner" : "vimproc",
+  \   "runner/vimproc/updatetime" : 60
+  \ },
+  \ "haskell" : {
+  \   "exec" : "stack runghc %s"
+  \ },
+  \ "markdown" : {
+  \   "outputter" : "null",
+  \   "command" : "open",
+  \   "cmdopt" : "-a",
+  \   "args" : "Marked",
+  \   "exec" : "%c %o %a %s",
+  \ },
+  \ "rst" : {
+  \   "outputter" : "null",
+  \   "command" : "open",
+  \   "cmdopt" : "-a",
+  \   "args" : "Marked",
+  \   "exec" : "%c %o %a %s",
+  \ },
+  \ 'ruby': {
+  \   'command': 'ruby',
+  \   'exec': '%c %s'
+  \ },
+  \ 'ruby.bundle': {
+  \   'command': 'ruby',
+  \   'exec': 'bundle exec %c %s'
+  \ },
+  \ 'rspec/normal': {
+  \   'type': 'rspec/normal',
+  \   'command': 'rspec',
+  \   'exec': '%c %s'
+  \ },
+  \ 'rspec/bundle': {
+  \   'type': 'rspec/bundle',
+  \   'command': 'rspec',
+  \   'exec': 'bundle exec %c %s'
+  \ },
+  \ 'python': {
+  \   'command': 'python3',
+  \   'exec': ['%c %s']
+  \ },
+  \ 'swift': {
+  \   'command': 'swift',
+  \   'exec': ['%c %s']
+  \ },
+  \ 'jsx': {
+  \   'command': './node_modules/.bin/babel',
+  \   'outputter': 'buffer:filetype=javascript',
+  \   'exec': ['%c %s']
+  \ },
+  \ 'dhall': {
+  \   'outputter': 'buffer:filetype=json',
+  \   'command': 'dhall-to-json',
+  \   'exec': ['%c --explain --pretty --omitNull <%s']
+  \ },
+  \ 'typescript': {
+  \   'command': 'ts-node',
+  \   'exec': ['%c %s']
+  \ },
+  \ 'coffee': {
+  \   'command': 'coffee',
+  \   'outputter': 'buffer:filetype=javascript',
+  \   'exec': ['%c -cbp %s']
+  \ }}
+function! RSpecQuickrun()
+  let b:quickrun_config = {'type' : 'rspec/bundle'}
+endfunction
+autocmd MyAutoCmd BufReadPost *_spec.rb call RSpecQuickrun()
+'''
+
+[[plugins]]
+repo = 'powerman/vim-plugin-AnsiEsc'
+on_ft = 'quickrun'
+depends = 'vim-quickrun'
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
+hook_add = '''
+au MyAutoCmd VimEnter * nested colorscheme iceberg
+au MyAutoCmd VimEnter * highlight Visual ctermbg=16
+'''
 
 [[plugins]]
 repo = 'thinca/vim-visualstar'
@@ -52,49 +188,42 @@ repo = 'thinca/vim-visualstar'
 repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
-repo = 'tomtom/tcomment_vim'
+repo = 'tpope/vim-endwise'
 
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+hook_add = '''
+let g:tcomment_opleader1 = 'gc'
+'''
+
+# textobj
 [[plugins]]
 repo = 'kana/vim-textobj-user'
-
 [[plugins]]
 repo = 'kana/vim-textobj-syntax'
-
 [[plugins]]
 repo = 'kana/vim-textobj-lastpat'
-
 [[plugins]]
 repo = 'kana/vim-textobj-indent'
-
 [[plugins]]
 repo = 'kana/vim-textobj-function'
-
 [[plugins]]
 repo = 'kana/vim-textobj-fold'
-
 [[plugins]]
 repo = 'kana/vim-textobj-entire'
-
 [[plugins]]
 repo = 'kana/vim-textobj-jabraces'
 
+# operator
 [[plugins]]
 repo = 'vim-scripts/operator-user'
-
 [[plugins]]
 repo = 'vim-scripts/operator-replace'
-
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
 
 [[plugins]]
-repo = 'vim-scripts/smartword'
-
-[[plugins]]
 repo = 'kana/vim-smartinput'
-
-[[plugins]]
-repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'vim-scripts/camelcasemotion'
@@ -106,17 +235,13 @@ repo = 'tpope/vim-surround'
 repo = 'tpope/vim-fugitive'
 
 [[plugins]]
+repo = 'vim-scripts/vcscommand.vim'
+
+[[plugins]]
 repo = 'tpope/vim-abolish'
 
 [[plugins]]
-repo = 'tpope/vim-rails.git'
-on_ft = 'ruby'
-
-[[plugins]]
 repo = 'tpope/vim-dispatch'
-
-[[plugins]]
-repo = 'vim-scripts/vcscommand.vim'
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
@@ -125,17 +250,42 @@ repo = 'h1mesuke/vim-alignta'
 repo = 'junegunn/vim-easy-align'
 
 [[plugins]]
-repo = 'gregsexton/gitv'
-
-[[plugins]]
 repo = 'simeji/winresizer'
 
-# [[plugins]]
-# repo = 'aklt/plantuml-syntax'
+[[plugins]]
+repo = 'vim-airline/vim-airline'
 
 [[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
+repo = 'vim-airline/vim-airline-themes'
+depends = 'vim-airline'
+
+[[plugins]]
+repo = 'sbdchd/neoformat'
+
+[[plugins]]
+repo = 'ap/vim-buftabline'
+
+[[plugins]]
+repo = 'lighttiger2505/gtags.vim'
+hook_add = '''
+let g:Gtags_Auto_Map = 0
+let g:Gtags_OpenQuickfixWindow = 1
+nnoremap <silent> K :GtagsCursor<CR>
+nnoremap <silent> R :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+'''
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_add = '''
+let g:gen_tags#ctags_auto_gen = 1
+let g:gen_tags#gtags_auto_gen = 1
+'''
+#
+# Ruby
+#
+[[plugins]]
+repo = 'tpope/vim-rails.git'
+on_ft = 'ruby'
 
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
@@ -154,132 +304,6 @@ repo = 'rhysd/vim-textobj-ruby'
 on_ft = 'ruby'
 
 [[plugins]]
-repo = '5t111111/denite-rails'
-on_ft = 'ruby'
-hook_add = '''
-nnoremap <silent> <Leader>r :<C-u>Denite<Space>rails:dwim<Return>
-nnoremap <silent> <Leader>m :<C-u>Denite<Space>rails:model<Return>
-nnoremap <silent> <Leader>c :<C-u>Denite<Space>rails:controller<Return>
-nnoremap <silent> <Leader>v :<C-u>Denite<Space>rails:view<Return>
-nnoremap <silent> <Leader>h :<C-u>Denite<Space>rails:helper<Return>
-nnoremap <silent> <Leader>s :<C-u>Denite<Space>rails:spec<Return>
-'''
-
-[[plugins]]
-repo = 'kchmck/vim-coffee-script'
-on_ft = 'coffee'
-
-[[plugins]]
-repo = 'vim-airline/vim-airline'
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
-depends = 'vim-airline'
-
-[[plugins]]
-on_ft = 'vue'
-repo = 'posva/vim-vue'
-
-[[plugins]]
-repo = 'janko-m/vim-test'
-on_ft = ['ruby', 'javascript']
-hook_add = '''
-nnoremap <silent> <C-\> :TestNearest -strategy=dispatch<CR>
-nnoremap <silent> t<C-n> :TestNearest -strategy=dispatch<CR>
-nnoremap <silent> t<C-f> :TestFile -strategy=dispatch<CR>
-'''
-
-[[plugins]]
-repo = 'neovimhaskell/haskell-vim'
-on_ft = 'haskell'
-
-[[plugins]]
-repo = 'alx741/vim-hindent'
-on_ft = 'haskell'
-
-[[plugins]]
-repo = 'parsonsmatt/intero-neovim'
-on_ft = 'haskell'
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
-on_ft = 'haskell'
-
-# [[plugins]]
-# repo = 'rizzatti/dash.vim'
-
-# [[plugins]]
-# repo = 'tyru/open-browser.vim'
-
-[[plugins]]
-on_ft = 'typescript'
-repo = 'leafgarland/typescript-vim'
-
-[[plugins]]
-on_ft = 'typescript'
-repo = 'Quramy/tsuquyomi'
-
-[[plugins]]
-repo = 'sbdchd/neoformat'
-
-[[plugins]]
-repo = 'elmcast/elm-vim'
-on_ft = 'elm'
-
-[[plugins]]
-repo = 'ap/vim-buftabline'
-
-# [[plugins]]
-# repo = 'Shougo/vinarise.vim'
-
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = 'go'
-
-[[plugins]]
-repo = 'AndrewRadev/splitjoin.vim'
-on_ft = 'go'
-
-# [[plugins]]
-# repo = 'SirVer/ultisnips'
-# on_ft = 'go'
-
-# [[plugins]]
-# repo = 'ctrlpvim/ctrlp.vim'
-# on_ft = 'go'
-#
-# [[plugins]]
-# repo = 'neomake/neomake'
-# on_ft = 'go'
-#
-# [[plugins]]
-# repo = 'sebdah/vim-delve'
-# on_ft = 'go'
-# hook_add = '''
-# let g:delve_backend = "native"
-# let g:delve_breakpoint_sign = "o"
-# '''
-
-[[plugins]]
-repo = 'lighttiger2505/gtags.vim'
-hook_add = '''
-let g:Gtags_Auto_Map = 0
-let g:Gtags_OpenQuickfixWindow = 1
-nnoremap <silent> K :GtagsCursor<CR>
-nnoremap <silent> R :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
-'''
-
-[[plugins]]
-repo = 'jsfaint/gen_tags.vim'
-hook_add = '''
-let g:gen_tags#ctags_auto_gen = 1
-let g:gen_tags#gtags_auto_gen = 1
-'''
-
-[[plugins]]
-repo = 'ozelentok/denite-gtags'
-
-[[plugins]]
 repo = 'w0rp/ale'
 on_ft = ['ruby', 'typescript']
 hook_add = '''
@@ -296,17 +320,141 @@ let g:ale_fix_on_save = 1
 '''
 
 [[plugins]]
-on_ft = 'dhall'
-repo = 'vmchale/dhall-vim'
+repo = 'janko-m/vim-test'
+on_ft = ['ruby', 'javascript']
+hook_add = '''
+nnoremap <silent> <C-\> :TestNearest -strategy=dispatch<CR>
+nnoremap <silent> t<C-n> :TestNearest -strategy=dispatch<CR>
+nnoremap <silent> t<C-f> :TestFile -strategy=dispatch<CR>
+'''
+
+#
+# Go
+#
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# on_ft = 'go'
+#
+# [[plugins]]
+# repo = 'AndrewRadev/splitjoin.vim'
+# on_ft = 'go'
+#
+# [[plugins]]
+# repo = 'SirVer/ultisnips'
+# on_ft = 'go'
+#
+# [[plugins]]
+# repo = 'ctrlpvim/ctrlp.vim'
+# on_ft = 'go'
+#
+# [[plugins]]
+# repo = 'neomake/neomake'
+# on_ft = 'go'
+#
+# [[plugins]]
+# repo = 'sebdah/vim-delve'
+# on_ft = 'go'
+# hook_add = '''
+# let g:delve_backend = "native"
+# let g:delve_breakpoint_sign = "o"
+# '''
+
+#
+# TypeScript
+#
+# [[plugins]]
+# on_ft = 'typescript'
+# repo = 'leafgarland/typescript-vim'
+#
+# [[plugins]]
+# on_ft = 'typescript'
+# repo = 'Quramy/tsuquyomi'
+
+#
+# Haskell
+#
+# [[plugins]]
+# repo = 'eagletmt/neco-ghc'
+# on_ft = 'haskell'
+# depends = 'deoplete.nvim'
+#
+# [[plugins]]
+# repo = 'neovimhaskell/haskell-vim'
+# on_ft = 'haskell'
+#
+# [[plugins]]
+# repo = 'alx741/vim-hindent'
+# on_ft = 'haskell'
+#
+# [[plugins]]
+# repo = 'parsonsmatt/intero-neovim'
+# on_ft = 'haskell'
+#
+# [[plugins]]
+# repo = 'majutsushi/tagbar'
+# on_ft = 'haskell'
+# hook_add = '''
+# set tags=tags;/,codex.tags;/
+# let g:tagbar_type_haskell = {
+#     \ 'ctagsbin'  : 'hasktags',
+#     \ 'ctagsargs' : '-x -c -o-',
+#     \ 'kinds'     : [
+#         \  'm:modules:0:1',
+#         \  'd:data: 0:1',
+#         \  'd_gadt: data gadt:0:1',
+#         \  't:type names:0:1',
+#         \  'nt:new types:0:1',
+#         \  'c:classes:0:1',
+#         \  'cons:constructors:1:1',
+#         \  'c_gadt:constructor gadt:1:1',
+#         \  'c_a:constructor accessors:1:1',
+#         \  'ft:function types:1:1',
+#         \  'fi:function implementations:0:1',
+#         \  'o:others:0:1'
+#     \ ],
+#     \ 'sro'        : '.',
+#     \ 'kind2scope' : {
+#         \ 'm' : 'module',
+#         \ 'c' : 'class',
+#         \ 'd' : 'data',
+#         \ 't' : 'type'
+#     \ },
+#     \ 'scope2kind' : {
+#         \ 'module' : 'm',
+#         \ 'class'  : 'c',
+#         \ 'data'   : 'd',
+#         \ 'type'   : 't'
+#     \ }
+# \ }
+# '''
+
+
+#
+# Other FileTypes
+#
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
 
 [[plugins]]
-on_ft = 'quickrun'
-repo = 'powerman/vim-plugin-AnsiEsc'
-
-[[plugins]]
-on_ft = 'markdown'
-repo = 'sorah/presen.vim'
-
-[[plugins]]
-on_ft = 'slim'
 repo = 'slim-template/vim-slim'
+on_ft = 'slim'
+
+# [[plugins]]
+# repo = 'elmcast/elm-vim'
+# on_ft = 'elm'
+#
+# [[plugins]]
+# repo = 'posva/vim-vue'
+# on_ft = 'vue'
+# hook_add = '''
+# autocmd FileType vue syntax sync fromstart
+# '''
+#
+# [[plugins]]
+# repo = 'kchmck/vim-coffee-script'
+# on_ft = 'coffee'
+#
+# [[plugins]]
+# repo = 'vmchale/dhall-vim'
+# on_ft = 'dhall'

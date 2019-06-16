@@ -38,40 +38,6 @@ set whichwrap=b,s,h,l,<,>,[,]
 set ttimeout
 set ttimeoutlen=50
 
-" Haskell tags
-set tags=tags;/,codex.tags;/
-let g:tagbar_type_haskell = {
-    \ 'ctagsbin'  : 'hasktags',
-    \ 'ctagsargs' : '-x -c -o-',
-    \ 'kinds'     : [
-        \  'm:modules:0:1',
-        \  'd:data: 0:1',
-        \  'd_gadt: data gadt:0:1',
-        \  't:type names:0:1',
-        \  'nt:new types:0:1',
-        \  'c:classes:0:1',
-        \  'cons:constructors:1:1',
-        \  'c_gadt:constructor gadt:1:1',
-        \  'c_a:constructor accessors:1:1',
-        \  'ft:function types:1:1',
-        \  'fi:function implementations:0:1',
-        \  'o:others:0:1'
-    \ ],
-    \ 'sro'        : '.',
-    \ 'kind2scope' : {
-        \ 'm' : 'module',
-        \ 'c' : 'class',
-        \ 'd' : 'data',
-        \ 't' : 'type'
-    \ },
-    \ 'scope2kind' : {
-        \ 'module' : 'm',
-        \ 'class'  : 'c',
-        \ 'data'   : 'd',
-        \ 'type'   : 't'
-    \ }
-\ }
-
 if &compatible
   set nocompatible
 endif
@@ -105,6 +71,11 @@ endif
 filetype plugin indent on
 syntax enable
 
+let g:python_host_prog = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+autocmd FileType gitcommit setlocal nofoldenable
+
 "
 " Key mapping: Natural movement
 "
@@ -126,6 +97,7 @@ nnoremap <silent> <C-k> <C-w>k
 "
 " Key mapping: Matchit
 "
+runtime macros/matchit.vim
 nmap <Tab> %
 vmap <Tab> %
 vmap m %
@@ -140,15 +112,13 @@ nnoremap <silent> Y :<C-u>syntax sync fromstart<CR>
 nnoremap <silent> F :<C-u>NERDTree<CR>
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
-nnoremap <silent> <C-Left> :<C-u>cprevious<CR>
-nnoremap <silent> <C-Right> :<C-u>cnext<CR>
+nnoremap <silent> <C-Up> :<C-u>cprevious<CR>
+nnoremap <silent> <C-Down> :<C-u>cnext<CR>
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
-" tagsジャンプの時に複数ある時は一覧表示
+" Key mapping: Tag Jump
 nnoremap <C-\> g<C-]>
 nnoremap <C-u> <C-t>
-
-nnoremap <C-g> :<C-u>GtagsCursor<CR>
 
 "
 " Key mapping: Visual Mode
@@ -201,9 +171,6 @@ nnoremap <silent> [SCRAMBLED]@ :<C-u>OpenBrowser https://www.stackage.org/lts-8.
 nnoremap [SCRAMBLED]L :<C-u>UniteWithCursorWord line<CR>
 nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
 nnoremap <silent> [SCRAMBLED]t :<C-u>TagbarToggle<CR>
-
-" nnoremap <silent> [SCRAMBLED]<CR> :<C-u>RufoOn<CR>
-" nnoremap <silent> [SCRAMBLED]+ :<C-u>RufoOff<CR>
 
 "
 " Key mapping: [BUFFER]
@@ -266,7 +233,6 @@ nnoremap [GIT] <Nop>
 xnoremap [GIT] <Nop>
 nmap Z [GIT]
 xmap Z [GIT]
-" デフォルトの ZZ と同じ挙動
 nnoremap [GIT]Z :<C-u>x<CR>
 nnoremap [GIT]W :<C-u>Gwrite<CR>
 nnoremap [GIT]C :<C-u>Gcommit<CR>
@@ -288,163 +254,3 @@ autocmd MyAutoCmd TermOpen * setlocal norelativenumber
 autocmd MyAutoCmd TermOpen * setlocal nonumber
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType quickrun AnsiEsc
-
-"
-" Matchit
-"
-runtime macros/matchit.vim
-
-let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
-
-autocmd FileType gitcommit setlocal nofoldenable
-
-"
-" Vue.js
-"
-autocmd FileType vue syntax sync fromstart
-
-"
-" QuickRun
-"
-let g:quickrun_config = {
-  \ "_" : {
-  \   "runner" : "vimproc",
-  \   "runner/vimproc/updatetime" : 60
-  \ },
-  \ "haskell" : {
-  \   "exec" : "stack runghc %s"
-  \ },
-  \ "markdown" : {
-  \   "outputter" : "null",
-  \   "command" : "open",
-  \   "cmdopt" : "-a",
-  \   "args" : "Marked",
-  \   "exec" : "%c %o %a %s",
-  \ },
-  \ "rst" : {
-  \   "outputter" : "null",
-  \   "command" : "open",
-  \   "cmdopt" : "-a",
-  \   "args" : "Marked",
-  \   "exec" : "%c %o %a %s",
-  \ },
-  \ 'ruby': {
-  \   'command': 'ruby',
-  \   'exec': '%c %s'
-  \ },
-  \ 'ruby.bundle': {
-  \   'command': 'ruby',
-  \   'exec': 'bundle exec %c %s'
-  \ },
-  \ 'rspec/normal': {
-  \   'type': 'rspec/normal',
-  \   'command': 'rspec',
-  \   'exec': '%c %s'
-  \ },
-  \ 'rspec/bundle': {
-  \   'type': 'rspec/bundle',
-  \   'command': 'rspec',
-  \   'exec': 'bundle exec %c %s'
-  \ },
-  \ 'python': {
-  \   'command': 'python3',
-  \   'exec': ['%c %s']
-  \ },
-  \ 'swift': {
-  \   'command': 'swift',
-  \   'exec': ['%c %s']
-  \ },
-  \ 'jsx': {
-  \   'command': './node_modules/.bin/babel',
-  \   'outputter': 'buffer:filetype=javascript',
-  \   'exec': ['%c %s']
-  \ },
-  \ 'dhall': {
-  \   'outputter': 'buffer:filetype=json',
-  \   'command': 'dhall-to-json',
-  \   'exec': ['%c --explain --pretty --omitNull <%s']
-  \ },
-  \ 'typescript': {
-  \   'command': 'ts-node',
-  \   'exec': ['%c %s']
-  \ },
-  \ 'coffee': {
-  \   'command': 'coffee',
-  \   'outputter': 'buffer:filetype=javascript',
-  \   'exec': ['%c -cbp %s']
-  \ }}
-
-function! RSpecQuickrun()
-  let b:quickrun_config = {'type' : 'rspec/bundle'}
-endfunction
-autocmd MyAutoCmd BufReadPost *_spec.rb call RSpecQuickrun()
-
-"
-" VimFiler
-"
-call vimfiler#custom#profile('default', 'context', {
-      \ 'safe' : 0,
-      \ 'auto_expand' : 1,
-      \ 'parent' : 0,
-      \ })
-
-"default explore -> vimfiler
-let g:vimfiler_as_default_explorer = 1
-
-"buffer directory
-nnoremap <silent> fe :<C-u>VimFilerBufferDir -quit<CR>
-
-"key mapping
-autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings()
-  nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('vsplit')
-  nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('split')
-  nnoremap <silent><buffer><expr> t vimfiler#do_action('tabopen')
-  nunmap <buffer> <C-l>
-endfunction
-
-" Textmate icons
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
-
-"
-" iceberg
-"
-au MyAutoCmd VimEnter * nested colorscheme iceberg
-au MyAutoCmd VimEnter * highlight Visual ctermbg=16
-
-
-"
-" tomtom/tcomment_vim
-"
-let g:tcomment_opleader1 = 'gc'
-
-"
-" Shougo/unite.vim
-"
-autocmd MyAutoCmd FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-autocmd MyAutoCmd FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-autocmd MyAutoCmd FileType unite nnoremap <silent> <buffer> <C-g> :q<CR>
-autocmd MyAutoCmd FileType unite inoremap <silent> <buffer> <C-g> <ESC>:q<CR>
-
-"
-" Shougo/denite.nvim
-"
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec', 'command', ['rg', '--files'])
-call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
-call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#var('grep', 'command', ['rg'])
-
-"
-" deoplete
-"
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#max_menu_width = 180
-
-let g:go_bin_path = $HOME."/go/bin"
