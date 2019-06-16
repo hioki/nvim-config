@@ -341,14 +341,14 @@ on_ft = ['ruby', 'typescript']
 hook_add = '''
 let g:ale_linters = {
     \ 'vue': ['tslint', 'tsserver'],
-    \ 'ruby': ['rufo'],
+    \ 'ruby': ['rubocop'],
     \ }
 let g:ale_fixers = {
     \ 'javascript': ['prettier'],
     \ 'typescript': ['prettier'],
-    \ 'ruby': ['rufo'],
+    \ 'ruby': ['rubocop'],
     \ }
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 '''
 
 [[plugins]]
