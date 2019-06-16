@@ -31,33 +31,67 @@ imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : 
 smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 '''
 
-# [[plugins]]
-# repo = 'Shougo/denite.nvim'
-# hook_add = '''
-# call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-# call denite#custom#var('file_rec', 'command', ['rg', '--files'])
-# call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
-# call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>', 'noremap')
-# call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>', 'noremap')
-# call denite#custom#var('grep', 'command', ['rg'])
-# '''
-#
-# [[plugins]]
-# repo = 'ozelentok/denite-gtags'
-# depends = 'denite.nvim'
-#
-# [[plugins]]
-# repo = '5t111111/denite-rails'
-# on_ft = 'ruby'
-# hook_add = '''
-# nnoremap <silent> <Leader>r :<C-u>Denite<Space>rails:dwim<Return>
-# nnoremap <silent> <Leader>m :<C-u>Denite<Space>rails:model<Return>
-# nnoremap <silent> <Leader>c :<C-u>Denite<Space>rails:controller<Return>
-# nnoremap <silent> <Leader>v :<C-u>Denite<Space>rails:view<Return>
-# nnoremap <silent> <Leader>h :<C-u>Denite<Space>rails:helper<Return>
-# nnoremap <silent> <Leader>s :<C-u>Denite<Space>rails:spec<Return>
-# '''
-# depends = 'denite.nvim'
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add = '''
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+  nnoremap <silent><buffer><expr> *
+  \ denite#do_map('toggle_select_all').'j'
+endfunction
+'''
+
+[[plugins]]
+repo = 'ozelentok/denite-gtags'
+depends = 'denite.nvim'
+hook_add = '''
+nnoremap <silent> K :<C-u>DeniteCursorWord -start-filter=1 -buffer-name=gtags_def gtags_def<CR>
+nnoremap <silent> R :<C-u>DeniteCursorWord -start-filter=1 -buffer-name=gtags_ref gtags_ref<CR>
+'''
+
+[[plugins]]
+repo = 'iyuuya/denite-rails'
+on_ft = 'ruby'
+hook_add = '''
+nnoremap <silent> <Leader>ab :<C-u>Denite -start-filter=1 rails:ability<CR>
+nnoremap <silent> <Leader>as :<C-u>Denite -start-filter=1 rails:asset<CR>
+nnoremap <silent> <Leader>at :<C-u>Denite -start-filter=1 rails:attribute<CR>
+nnoremap <silent> <Leader>cf :<C-u>Denite -start-filter=1 rails:config<CR>
+nnoremap <silent> <Leader>ct :<C-u>Denite -start-filter=1 rails:controller<CR>
+nnoremap <silent> <Leader>db :<C-u>Denite -start-filter=1 rails:db<CR>
+nnoremap <silent> <Leader>de :<C-u>Denite -start-filter=1 rails:decorator<CR>
+nnoremap <silent> <Leader>do :<C-u>Denite -start-filter=1 rails:domain<CR>
+nnoremap <silent> <Leader>fa :<C-u>Denite -start-filter=1 rails:factory<CR>
+nnoremap <silent> <Leader>fo :<C-u>Denite -start-filter=1 rails:form<CR>
+nnoremap <silent> <Leader>he :<C-u>Denite -start-filter=1 rails:helper<CR>
+nnoremap <silent> <Leader>jo :<C-u>Denite -start-filter=1 rails:job<CR>
+nnoremap <silent> <Leader>lo :<C-u>Denite -start-filter=1 rails:loyalty<CR>
+nnoremap <silent> <Leader>ma :<C-u>Denite -start-filter=1 rails:mailer<CR>
+nnoremap <silent> <Leader>mo :<C-u>Denite -start-filter=1 rails:model<CR>
+nnoremap <silent> <Leader>po :<C-u>Denite -start-filter=1 rails:policy<CR>
+nnoremap <silent> <Leader>pr :<C-u>Denite -start-filter=1 rails:presenter<CR>
+nnoremap <silent> <Leader>qu :<C-u>Denite -start-filter=1 rails:query<CR>
+nnoremap <silent> <Leader>sl :<C-u>Denite -start-filter=1 rails:serializer<CR>
+nnoremap <silent> <Leader>sv :<C-u>Denite -start-filter=1 rails:service<CR>
+nnoremap <silent> <Leader>sp :<C-u>Denite -start-filter=1 rails:spec<CR>
+nnoremap <silent> <Leader>te :<C-u>Denite -start-filter=1 rails:test<CR>
+nnoremap <silent> <Leader>up :<C-u>Denite -start-filter=1 rails:uploader<CR>
+nnoremap <silent> <Leader>va :<C-u>Denite -start-filter=1 rails:validator<CR>
+nnoremap <silent> <Leader>vi :<C-u>Denite -start-filter=1 rails:view<CR>
+'''
+depends = 'denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
@@ -270,8 +304,6 @@ repo = 'lighttiger2505/gtags.vim'
 hook_add = '''
 let g:Gtags_Auto_Map = 0
 let g:Gtags_OpenQuickfixWindow = 1
-nnoremap <silent> K :GtagsCursor<CR>
-nnoremap <silent> R :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
 '''
 
 [[plugins]]

@@ -156,10 +156,9 @@ nnoremap <silent> [SCRAMBLED]e :<C-u>NERDTree<CR>
 nnoremap <silent> [SCRAMBLED]d :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]/ :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]D :<C-u>Gvdiff<CR>
-" nnoremap <silent> [SCRAMBLED]k :<C-u>DeniteProjectDir file/rec<CR>
-nnoremap <silent> [SCRAMBLED]k :<C-u>UniteWithProjectDir file_rec/async:app file_rec/async:spec -start-insert<CR>
+nnoremap <silent> [SCRAMBLED]k :<C-u>Denite -start-filter=1 -buffer-name=gtags_path gtags_path<CR>
+nnoremap [SCRAMBLED]r :<C-u>Denite -start-filter=1 -buffer-name=gtags_ref gtags_ref -input=
 nnoremap <silent> [SCRAMBLED]b :<C-u>Denite buffer<CR>
-nnoremap <silent> [SCRAMBLED]u :<C-u>DeniteCursorWord -buffer-name=gtags_def gtags_def<CR>
 
 " nnoremap <expr> [SCRAMBLED]E ':NeoSnippetEdit '.expand(&filetype).'<CR>'
 " nnoremap <expr> [SCRAMBLED]S ':NeoSnippetSource ~/.vim/snippets/'.expand(&filetype).'.snip<CR>'
