@@ -42,10 +42,6 @@ if &compatible
   set nocompatible
 endif
 
-augroup MyAutoCmd
-  autocmd!
-augroup END
-
 let s:dein_cache_path = expand('~/.cache/nvim/dein')
 let s:dein_dir        = s:dein_cache_path . '/repos/github.com/Shougo/dein.vim'
 
@@ -246,11 +242,11 @@ nnoremap <silent> [GIT]S :<C-u>Dispatch hub browse<CR>
 "
 " Autocmds
 "
-autocmd MyAutoCmd BufRead,BufNewFile *.snip  set filetype=snippet
-autocmd MyAutoCmd BufRead,BufNewFile *.md  set filetype=markdown
-autocmd MyAutoCmd BufRead,BufNewFile *.uml  set filetype=plantuml
-autocmd MyAutoCmd BufRead,BufNewFile *.mustache  set filetype=html
-autocmd MyAutoCmd TermOpen * setlocal norelativenumber
-autocmd MyAutoCmd TermOpen * setlocal nonumber
+autocmd BufRead,BufNewFile *.snip  set filetype=snippet
+autocmd BufRead,BufNewFile *.md  set filetype=markdown
+autocmd BufRead,BufNewFile *.uml  set filetype=plantuml
+autocmd BufRead,BufNewFile *.mustache  set filetype=html
+autocmd TermOpen * setlocal norelativenumber
+autocmd TermOpen * setlocal nonumber
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType quickrun AnsiEsc
