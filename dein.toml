@@ -57,8 +57,8 @@ endfunction
 repo = 'ozelentok/denite-gtags'
 depends = 'denite.nvim'
 hook_add = '''
-nnoremap <silent> K :<C-u>DeniteCursorWord -start-filter=1 -buffer-name=gtags_def gtags_def<CR>
-nnoremap <silent> R :<C-u>DeniteCursorWord -start-filter=1 -buffer-name=gtags_ref gtags_ref<CR>
+nnoremap <silent> K :<C-u>DeniteCursorWord -immediately-1 -buffer-name=gtags_def gtags_def<CR>
+nnoremap <silent> R :<C-u>DeniteCursorWord -immediately-1 -buffer-name=gtags_ref gtags_ref<CR>
 '''
 
 [[plugins]]
