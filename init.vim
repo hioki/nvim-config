@@ -37,6 +37,7 @@ set smartcase
 set whichwrap=b,s,h,l,<,>,[,]
 set ttimeout
 set ttimeoutlen=50
+set signcolumn=yes
 
 if &compatible
   set nocompatible
