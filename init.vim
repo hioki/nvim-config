@@ -243,10 +243,12 @@ nnoremap <silent> [GIT]S :<C-u>Dispatch hub browse<CR>
 "
 " Autocmds
 "
-autocmd BufRead,BufNewFile *.snip  set filetype=snippet
-autocmd BufRead,BufNewFile *.md  set filetype=markdown
-autocmd BufRead,BufNewFile *.uml  set filetype=plantuml
-autocmd BufRead,BufNewFile *.mustache  set filetype=html
+autocmd BufRead,BufNewFile *.snip set filetype=snippet
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.uml set filetype=plantuml
+autocmd BufRead,BufNewFile *.mustache set filetype=html
+autocmd BufRead,BufNewFile *.cf.yaml set filetype=cloudformation.yaml
+autocmd BufRead,BufNewFile *.cf.json set filetype=cloudformation.json
 autocmd TermOpen * setlocal norelativenumber
 autocmd TermOpen * setlocal nonumber
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
