@@ -161,6 +161,7 @@ nnoremap <silent> [SCRAMBLED]k :<C-u>Denite -start-filter=1 -buffer-name=gtags_p
 nnoremap [SCRAMBLED]r :<C-u>Denite -start-filter=1 -buffer-name=gtags_ref gtags_ref -input=
 nnoremap <silent> [SCRAMBLED]b :<C-u>Denite buffer<CR>
 nnoremap <silent> [SCRAMBLED]a :<C-u>A<CR>
+nnoremap <silent> [SCRAMBLED]f :<C-u>Denite -start-filter=1 file/rec<CR>
 
 " nnoremap <expr> [SCRAMBLED]E ':NeoSnippetEdit '.expand(&filetype).'<CR>'
 " nnoremap <expr> [SCRAMBLED]S ':NeoSnippetSource ~/.vim/snippets/'.expand(&filetype).'.snip<CR>'
