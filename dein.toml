@@ -430,33 +430,33 @@ on_ft = ['php']
 #
 # Go
 #
-# [[plugins]]
-# repo = 'fatih/vim-go'
-# on_ft = 'go'
-#
-# [[plugins]]
-# repo = 'AndrewRadev/splitjoin.vim'
-# on_ft = 'go'
-#
-# [[plugins]]
-# repo = 'SirVer/ultisnips'
-# on_ft = 'go'
-#
-# [[plugins]]
-# repo = 'ctrlpvim/ctrlp.vim'
-# on_ft = 'go'
-#
-# [[plugins]]
-# repo = 'neomake/neomake'
-# on_ft = 'go'
-#
-# [[plugins]]
-# repo = 'sebdah/vim-delve'
-# on_ft = 'go'
-# hook_add = '''
-# let g:delve_backend = "native"
-# let g:delve_breakpoint_sign = "o"
-# '''
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'AndrewRadev/splitjoin.vim'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'neomake/neomake'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'sebdah/vim-delve'
+on_ft = 'go'
+hook_add = '''
+let g:delve_backend = "native"
+let g:delve_breakpoint_sign = "o"
+'''
 
 #
 # TypeScript
