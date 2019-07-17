@@ -443,10 +443,6 @@ repo = 'SirVer/ultisnips'
 on_ft = 'go'
 
 [[plugins]]
-repo = 'ctrlpvim/ctrlp.vim'
-on_ft = 'go'
-
-[[plugins]]
 repo = 'neomake/neomake'
 on_ft = 'go'
 
