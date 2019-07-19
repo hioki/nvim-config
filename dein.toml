@@ -518,11 +518,11 @@ let g:sqlfmt_auto = 0
 # hook_add = '''
 # autocmd FileType vue syntax sync fromstart
 # '''
-#
-# [[plugins]]
-# repo = 'kchmck/vim-coffee-script'
-# on_ft = 'coffee'
-#
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+on_ft = 'coffee'
+
 # [[plugins]]
 # repo = 'vmchale/dhall-vim'
 # on_ft = 'dhall'
