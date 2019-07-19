@@ -506,8 +506,6 @@ hook_add = '''
 let g:sqlfmt_command = "sqlfmt"
 let g:sqlfmt_options = ""
 let g:sqlfmt_auto = 0
-nnoremap = :<C-u>SQLFmt<CR>
-vnoremap = :<C-u>SQLFmt<CR>
 '''
 
 # [[plugins]]
