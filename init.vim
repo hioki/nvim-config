@@ -254,3 +254,4 @@ autocmd TermOpen * setlocal norelativenumber
 autocmd TermOpen * setlocal nonumber
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType quickrun AnsiEsc
+autocmd FileType qf nnoremap <CR> <C-w><CR><C-w>T
