@@ -526,3 +526,9 @@ on_ft = 'coffee'
 # [[plugins]]
 # repo = 'vmchale/dhall-vim'
 # on_ft = 'dhall'
+
+[[plugins]]
+repo = 'ekalinin/Dockerfile.vim'
+
+[[plugins]]
+repo = 'chr4/nginx.vim'
