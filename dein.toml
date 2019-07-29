@@ -532,3 +532,17 @@ repo = 'ekalinin/Dockerfile.vim'
 
 [[plugins]]
 repo = 'chr4/nginx.vim'
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+hook_add = '''
+let g:rustfmt_autosave = 1
+'''
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+on_ft = 'rust'
+hook_add = '''
+let g:rust_clip_command = 'pbcopy'
+'''
