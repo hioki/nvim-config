@@ -192,6 +192,10 @@ let g:quickrun_config = {
   \   'command': 'ts-node',
   \   'exec': ['%c %s']
   \ },
+  \ 'rust': {
+  \   'command': 'cargo',
+  \   'exec': ['%c run %s']
+  \ },
   \ 'coffee': {
   \   'command': 'coffee',
   \   'outputter': 'buffer:filetype=javascript',
