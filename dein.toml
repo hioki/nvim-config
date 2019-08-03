@@ -196,6 +196,10 @@ let g:quickrun_config = {
   \   'command': 'cargo',
   \   'exec': ['%c run %s']
   \ },
+  \ 'rust.cargoscript': {
+  \   'command': 'cargo',
+  \   'exec': ['%c script %s']
+  \ },
   \ 'coffee': {
   \   'command': 'coffee',
   \   'outputter': 'buffer:filetype=javascript',
@@ -563,6 +567,7 @@ set hidden
 let g:LanguageClient_serverCommands = {
   \ 'cpp': ['clangd'],
   \ 'rust': ['rustup', 'run', 'nightly-2019-07-31', 'rls'],
+  \ 'rust.cargoscript': ['rustup', 'run', 'nightly-2019-07-31', 'rls'],
   \ }
 
 augroup LanguageClient_config

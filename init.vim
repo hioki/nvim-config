@@ -243,6 +243,7 @@ nnoremap <silent> [GIT]S :<C-u>Dispatch hub browse<CR>
 "
 " Autocmds
 "
+autocmd BufRead,BufNewFile *.crs set filetype=rust.cargoscript
 autocmd BufRead,BufNewFile *.snip set filetype=snippet
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.uml set filetype=plantuml
