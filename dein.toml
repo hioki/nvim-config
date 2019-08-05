@@ -194,7 +194,7 @@ let g:quickrun_config = {
   \ },
   \ 'rust': {
   \   'command': 'cargo',
-  \   'exec': ['%c run %s']
+  \   'exec': ['%c run --quiet %s']
   \ },
   \ 'rust.cargoscript': {
   \   'command': 'cargo',
