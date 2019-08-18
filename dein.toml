@@ -414,6 +414,51 @@ nnoremap <silent> t<C-f> :TestFile -strategy=dispatch<CR>
 '''
 
 #
+# Rust
+#
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+hook_add = '''
+let g:rustfmt_autosave = 1
+'''
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+on_ft = 'rust'
+hook_add = '''
+let g:rust_clip_command = 'pbcopy'
+'''
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+on_ft = 'rust'
+rev = 'next'
+build = 'bash install.sh'
+hook_add = '''
+set hidden
+
+" settings for languages
+let g:LanguageClient_serverCommands = {
+  \ 'cpp': ['clangd'],
+  \ 'rust': ['rustup', 'run', 'nightly-2019-07-31', 'rls'],
+  \ 'rust.cargoscript': ['rustup', 'run', 'nightly-2019-07-31', 'rls'],
+  \ }
+
+augroup LanguageClient_config
+  autocmd!
+  autocmd User LanguageClientStarted setlocal signcolumn=yes
+  autocmd User LanguageClientStopped setlocal signcolumn=auto
+augroup END
+
+let g:LanguageClient_autoStart = 1
+nnoremap <silent> <Space>lh :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> <Space>ld :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <Space>lr :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <Space>lf :call LanguageClient_textDocument_formatting()<CR>
+'''
+
+#
 # PHP
 #
 [[plugins]]
@@ -540,45 +585,3 @@ repo = 'ekalinin/Dockerfile.vim'
 
 [[plugins]]
 repo = 'chr4/nginx.vim'
-
-[[plugins]]
-repo = 'rust-lang/rust.vim'
-on_ft = 'rust'
-hook_add = '''
-let g:rustfmt_autosave = 1
-'''
-
-[[plugins]]
-repo = 'mattn/webapi-vim'
-on_ft = 'rust'
-hook_add = '''
-let g:rust_clip_command = 'pbcopy'
-'''
-
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-on_ft = 'rust'
-rev = 'next'
-build = 'bash install.sh'
-hook_add = '''
-set hidden
-
-" settings for languages
-let g:LanguageClient_serverCommands = {
-  \ 'cpp': ['clangd'],
-  \ 'rust': ['rustup', 'run', 'nightly-2019-07-31', 'rls'],
-  \ 'rust.cargoscript': ['rustup', 'run', 'nightly-2019-07-31', 'rls'],
-  \ }
-
-augroup LanguageClient_config
-  autocmd!
-  autocmd User LanguageClientStarted setlocal signcolumn=yes
-  autocmd User LanguageClientStopped setlocal signcolumn=auto
-augroup END
-
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> <Space>lh :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> <Space>ld :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <Space>lr :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <Space>lf :call LanguageClient_textDocument_formatting()<CR>
-'''
