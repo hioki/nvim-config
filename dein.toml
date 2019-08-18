@@ -517,6 +517,28 @@ let g:delve_breakpoint_sign = "o"
 # on_ft = 'haskell'
 
 #
+# Terraform
+#
+[[plugins]]
+repo = 'hashivim/vim-terraform'
+on_ft = 'terraform'
+hook_add = '''
+let g:terraform_fmt_on_save = 1
+'''
+
+[[plugins]]
+repo = 'juliosueiras/vim-terraform-completion'
+on_ft = 'terraform'
+depends_on = ['deoplete.nvim', 'vim-terraform']
+hook_add = '''
+set completeopt+=noinsert
+call deoplete#custom#option('omni_patterns', {
+\ 'complete_method': 'omnifunc',
+\ 'terraform': '[^ *\t"{=$]\w*',
+\})
+'''
+
+#
 # Other FileTypes
 #
 [[plugins]]
