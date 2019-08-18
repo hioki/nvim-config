@@ -459,31 +459,6 @@ nnoremap <silent> <Space>lf :call LanguageClient_textDocument_formatting()<CR>
 '''
 
 #
-# PHP
-#
-[[plugins]]
-repo = 'phpactor/phpactor'
-on_ft = ['php']
-build = 'composer install'
-hook_add = '''
-nnoremap <silent><Leader>u  :<C-u>call phpactor#UseAdd()<CR>
-nnoremap <silent><Leader>mm :<C-u>call phpactor#ContextMenu()<CR>
-nnoremap <silent><Leader>nn :<C-u>call phpactor#Navigate()<CR>
-nnoremap <silent><Leader>o  :<C-u>call phpactor#GotoDefinition()<CR>
-nnoremap <silent><Leader>tt :<C-u>call phpactor#Transform()<CR>
-nnoremap <silent><Leader>cc :<C-u>call phpactor#ClassNew()<CR>
-nnoremap <silent><Leader>ee :<C-u>call phpactor#ExtractExpression(v:false)<CR>
-vnoremap <silent><Leader>ee :<C-u>call phpactor#ExtractExpression(v:true)<CR>
-vnoremap <silent><Leader>em :<C-u>call phpactor#ExtractMethod()<CR>
-nnoremap <silent><Leader>o  :<C-u>call phpactor#GotoDefinition()<CR>
-vnoremap <silent><Leader>hh :<C-u>call phpactor#Hover()<CR>
-'''
-
-[[plugins]]
-repo  = 'kristijanhusak/deoplete-phpactor'
-on_ft = ['php']
-
-#
 # Go
 #
 [[plugins]]
@@ -585,3 +560,28 @@ repo = 'ekalinin/Dockerfile.vim'
 
 [[plugins]]
 repo = 'chr4/nginx.vim'
+
+# #
+# # PHP
+# #
+# [[plugins]]
+# repo = 'phpactor/phpactor'
+# on_ft = ['php']
+# build = 'composer install'
+# hook_add = '''
+# nnoremap <silent><Leader>u  :<C-u>call phpactor#UseAdd()<CR>
+# nnoremap <silent><Leader>mm :<C-u>call phpactor#ContextMenu()<CR>
+# nnoremap <silent><Leader>nn :<C-u>call phpactor#Navigate()<CR>
+# nnoremap <silent><Leader>o  :<C-u>call phpactor#GotoDefinition()<CR>
+# nnoremap <silent><Leader>tt :<C-u>call phpactor#Transform()<CR>
+# nnoremap <silent><Leader>cc :<C-u>call phpactor#ClassNew()<CR>
+# nnoremap <silent><Leader>ee :<C-u>call phpactor#ExtractExpression(v:false)<CR>
+# vnoremap <silent><Leader>ee :<C-u>call phpactor#ExtractExpression(v:true)<CR>
+# vnoremap <silent><Leader>em :<C-u>call phpactor#ExtractMethod()<CR>
+# nnoremap <silent><Leader>o  :<C-u>call phpactor#GotoDefinition()<CR>
+# vnoremap <silent><Leader>hh :<C-u>call phpactor#Hover()<CR>
+# '''
+#
+# [[plugins]]
+# repo  = 'kristijanhusak/deoplete-phpactor'
+# on_ft = ['php']
