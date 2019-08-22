@@ -1,2 +1,2 @@
 " Insert ';' at the end of the line.
-nnoremap g<CR> mzA;<Esc>`z
+nnoremap g<CR> mz%A;<Esc>`z
