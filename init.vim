@@ -166,7 +166,7 @@ nnoremap <silent> [SCRAMBLED]f :<C-u>Denite -start-filter=1 file/rec<CR>
 " nnoremap <expr> [SCRAMBLED]S ':NeoSnippetSource ~/.vim/snippets/'.expand(&filetype).'.snip<CR>'
 nnoremap <silent> [SCRAMBLED]@ :<C-u>OpenBrowser https://www.stackage.org/lts-8.24/hoogle?q=<C-r>=expand("<cword>")<CR><CR>
 nnoremap [SCRAMBLED]L :<C-u>UniteWithCursorWord line<CR>
-nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
+" nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
 nnoremap <silent> [SCRAMBLED]t :<C-u>TagbarToggle<CR>
 
 "
