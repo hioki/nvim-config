@@ -162,8 +162,8 @@ nnoremap <silent> [SCRAMBLED]b :<C-u>Denite buffer<CR>
 nnoremap <silent> [SCRAMBLED]a :<C-u>A<CR>
 nnoremap <silent> [SCRAMBLED]f :<C-u>Denite -start-filter=1 file/rec<CR>
 
-" nnoremap <expr> [SCRAMBLED]E ':NeoSnippetEdit '.expand(&filetype).'<CR>'
-" nnoremap <expr> [SCRAMBLED]S ':NeoSnippetSource ~/.vim/snippets/'.expand(&filetype).'.snip<CR>'
+nnoremap <expr> [SCRAMBLED]E ':NeoSnippetEdit '.expand(&filetype).'<CR>'
+nnoremap <expr> [SCRAMBLED]S ':NeoSnippetSource ~/.vim/snippets/'.expand(&filetype).'.snip<CR>'
 nnoremap <silent> [SCRAMBLED]@ :<C-u>OpenBrowser https://www.stackage.org/lts-8.24/hoogle?q=<C-r>=expand("<cword>")<CR><CR>
 nnoremap [SCRAMBLED]L :<C-u>UniteWithCursorWord line<CR>
 " nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
@@ -244,7 +244,7 @@ nnoremap <silent> [GIT]S :<C-u>Dispatch hub browse<CR>
 " Autocmds
 "
 autocmd BufRead,BufNewFile *.crs set filetype=rust.cargoscript
-autocmd BufRead,BufNewFile *.snip set filetype=snippet
+autocmd BufRead,BufNewFile *.snip set filetype=neosnippet
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.uml set filetype=plantuml
 autocmd BufRead,BufNewFile *.mustache set filetype=html
