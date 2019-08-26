@@ -277,6 +277,9 @@ repo = 'tpope/vim-surround'
 repo = 'tpope/vim-fugitive'
 
 [[plugins]]
+repo = 'tpope/vim-rhubarb'
+
+[[plugins]]
 repo = 'vim-scripts/vcscommand.vim'
 
 [[plugins]]
