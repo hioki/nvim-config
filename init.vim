@@ -250,6 +250,7 @@ autocmd BufRead,BufNewFile *.uml set filetype=plantuml
 autocmd BufRead,BufNewFile *.mustache set filetype=html
 autocmd BufRead,BufNewFile *.cf.yaml set filetype=cloudformation.yaml
 autocmd BufRead,BufNewFile *.cf.json set filetype=cloudformation.json
+autocmd BufRead,BufNewFile *.tera set ft=jinja
 autocmd TermOpen * setlocal norelativenumber
 autocmd TermOpen * setlocal nonumber
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4

@@ -227,6 +227,12 @@ repo = 'slim-template/vim-slim'
 on_ft = 'slim'
 
 #
+# jinja
+#
+repo = 'Glench/Vim-Jinja2-Syntax'
+on_ft = 'jinja'
+
+#
 # SQL
 #
 [[plugins]]
