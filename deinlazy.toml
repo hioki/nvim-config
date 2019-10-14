@@ -183,7 +183,7 @@ repo = 'Quramy/tsuquyomi'
 # Elm
 #
 [[plugins]]
-repo = 'elmcast/elm-vim'
+repo = 'ElmCast/elm-vim'
 on_ft = 'elm'
 
 #
