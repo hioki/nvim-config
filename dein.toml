@@ -226,9 +226,6 @@ repo = 'thinca/vim-visualstar'
 repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
-repo = 'tpope/vim-endwise'
-
-[[plugins]]
 repo = 'tomtom/tcomment_vim'
 hook_add = '''
 let g:tcomment_opleader1 = 'gc'
@@ -259,9 +256,6 @@ repo = 'vim-scripts/operator-user'
 repo = 'vim-scripts/operator-replace'
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
-
-[[plugins]]
-repo = 'kana/vim-smartinput'
 
 [[plugins]]
 repo = 'vim-scripts/camelcasemotion'

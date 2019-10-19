@@ -123,6 +123,10 @@ repo = 'rhysd/vim-textobj-ruby'
 on_ft = 'ruby'
 
 [[plugins]]
+repo = 'tpope/vim-endwise'
+on_ft = 'ruby'
+
+[[plugins]]
 repo = 'w0rp/ale'
 on_ft = ['ruby', 'typescript']
 hook_add = '''
