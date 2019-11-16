@@ -185,6 +185,11 @@ repo = 'Quramy/tsuquyomi'
 # Elm
 #
 [[plugins]]
+repo = 'neoclide/coc.nvim'
+on_ft = 'elm'
+rev = 'release'
+
+[[plugins]]
 repo = 'ElmCast/elm-vim'
 on_ft = 'elm'
 
