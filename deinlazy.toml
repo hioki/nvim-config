@@ -310,3 +310,9 @@ on_ft = 'toml'
 [[plugins]]
 repo = 'vmchale/dhall-vim'
 on_ft = 'dhall'
+
+#
+# GraphQL
+#
+repo = 'jparise/vim-graphql'
+on_ft = 'graphql'
