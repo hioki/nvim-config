@@ -355,6 +355,8 @@ nnoremap <silent> <Space>lh :<C-u>LspHover<CR>
 nnoremap <silent> <Space>ld :<C-u>LspDefinition<CR>
 nnoremap <silent> <Space>lr :<C-u>LspRename<CR>
 nnoremap <silent> <Space>lf :<C-u>LspDocumentFormat<CR>
+
+autocmd BufWritePre <buffer> LspDocumentFormatSync
 '''
 
 [[plugins]]
