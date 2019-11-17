@@ -126,7 +126,7 @@ on_ft = 'ruby'
 
 [[plugins]]
 repo = 'w0rp/ale'
-on_ft = ['ruby', 'typescript']
+on_ft = ['ruby', 'typescript', 'javascript']
 hook_add = '''
 let g:ale_linters = {
     \ 'vue': ['tslint', 'tsserver'],
@@ -137,8 +137,6 @@ let g:ale_fixers = {
     \ 'typescript': ['prettier'],
     \ 'ruby': ['rubocop'],
     \ }
-let g:ale_fix_on_save = 0
-let g:ale_sign_column_always = 1
 '''
 
 [[plugins]]
@@ -361,7 +359,7 @@ nnoremap <silent> <Space>ld :<C-u>LspDefinition<CR>
 nnoremap <silent> <Space>lr :<C-u>LspRename<CR>
 nnoremap <silent> <Space>lf :<C-u>LspDocumentFormat<CR>
 
-autocmd BufWritePre <buffer> LspDocumentFormatSync
+let g:lsp_diagnostics_enabled = 0
 '''
 
 [[plugins]]
