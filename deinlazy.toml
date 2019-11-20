@@ -320,67 +320,74 @@ on_ft = 'dhall'
 repo = 'jparise/vim-graphql'
 on_ft = 'graphql'
 
+# #
+# # vim-lsp
+# #
+# [[plugins]]
+# repo = 'prabirshrestha/vim-lsp'
+# on_ft = ['javascript', 'ruby', 'go']
+# hook_add = '''
+# if executable('typescript-language-server')
+#   au User lsp_setup call lsp#register_server({
+#     \ 'name': 'javascript support using typescript-language-server',
+#     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+#     \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+#     \ 'whitelist': ['javascript', 'javascript.jsx'],
+#     \ })
+# endif
 #
-# vim-lsp
+# if executable('solargraph')
+#   " gem install solargraph
+#   au User lsp_setup call lsp#register_server({
+#     \ 'name': 'solargraph',
+#     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+#     \ 'initialization_options': {"diagnostics": "true"},
+#     \ 'whitelist': ['ruby'],
+#     \ })
+# endif
 #
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-on_ft = ['javascript', 'ruby', 'go']
-hook_add = '''
-if executable('typescript-language-server')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'javascript support using typescript-language-server',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-    \ 'whitelist': ['javascript', 'javascript.jsx'],
-    \ })
-endif
-
-if executable('solargraph')
-  " gem install solargraph
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'solargraph',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-    \ 'initialization_options': {"diagnostics": "true"},
-    \ 'whitelist': ['ruby'],
-    \ })
-endif
-
-if executable('gopls')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'gopls',
-    \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-    \ 'whitelist': ['go'],
-    \ })
-endif
-
-nnoremap <silent> <Space>lh :<C-u>LspHover<CR>
-nnoremap <silent> <Space>ld :<C-u>LspDefinition<CR>
-nnoremap <silent> <Space>lr :<C-u>LspRename<CR>
-nnoremap <silent> <Space>lf :<C-u>LspDocumentFormat<CR>
-
-let g:lsp_diagnostics_enabled = 0
-'''
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-on_ft = ['javascript', 'ruby', 'go']
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-on_ft = ['javascript', 'ruby', 'go']
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-on_ft = ['javascript', 'ruby', 'go']
-
+# if executable('gopls')
+#   au User lsp_setup call lsp#register_server({
+#     \ 'name': 'gopls',
+#     \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+#     \ 'whitelist': ['go'],
+#     \ })
+# endif
 #
-# JavaScript
+# nnoremap <silent> <Space>lh :<C-u>LspHover<CR>
+# nnoremap <silent> <Space>ld :<C-u>LspDefinition<CR>
+# nnoremap <silent> <Space>lr :<C-u>LspRename<CR>
+# nnoremap <silent> <Space>lf :<C-u>LspDocumentFormat<CR>
 #
-[[plugins]]
-repo = 'ryanolsonx/vim-lsp-javascript'
-on_ft = 'javascript'
-
-[[plugins]]
-repo = 'MaxMEllon/vim-jsx-pretty'
-on_ft = 'javascript'
+# let g:lsp_diagnostics_enabled = 0
+# '''
+#
+# [[plugins]]
+# repo = 'prabirshrestha/async.vim'
+# on_ft = ['javascript', 'ruby', 'go']
+#
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete.vim'
+# on_ft = ['javascript', 'ruby', 'go']
+#
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete-lsp.vim'
+# on_ft = ['javascript', 'ruby', 'go']
+#
+# #
+# # JavaScript
+# #
+# [[plugins]]
+# repo = 'ryanolsonx/vim-lsp-javascript'
+# on_ft = 'javascript'
+#
+# [[plugins]]
+# repo = 'MaxMEllon/vim-jsx-pretty'
+# on_ft = 'javascript'
+#
+# [[plugins]]
+# repo = 'kristijanhusak/vim-js-file-import'
+# on_ft = 'javascript'
+# hook_add = '''
+# let g:js_file_import_sort_after_insert = 1
+# '''
