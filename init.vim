@@ -224,6 +224,15 @@ nnoremap [FILETYPE]c :<C-u>set filetype=coffee<CR>
 nnoremap [FILETYPE]k :<C-u>set filetype=haskell<CR>
 
 "
+" Key mapping: [ENCODING]
+"
+nnoremap [ENCODING] <Nop>
+xnoremap [ENCODING] <Nop>
+nmap E [ENCODING]
+xmap E [ENCODING]
+nnoremap [ENCODING]S :<C-u>e ++enc=sjis<CR>
+
+"
 " Key mapping: [GIT]
 "
 nnoremap [GIT] <Nop>
