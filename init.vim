@@ -106,6 +106,7 @@ nnoremap <silent> W :<C-u>set wrap!<CR>
 nnoremap <silent> S :<C-u>set number!<CR>
 nnoremap <silent> Y :<C-u>syntax sync fromstart<CR>
 nnoremap <silent> F :<C-u>:w !pbcopy<CR><CR>
+vnoremap <silent> F :<C-u>:'<,'>w !pbcopy<CR><CR>
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
 nnoremap <silent> <C-Up> :<C-u>cprevious<CR>
