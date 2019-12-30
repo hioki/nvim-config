@@ -329,9 +329,3 @@ repo = 'ekalinin/Dockerfile.vim'
 
 [[plugins]]
 repo = 'chr4/nginx.vim'
-
-#
-# Slim
-#
-[[plugins]]
-repo = 'slim-template/vim-slim'
