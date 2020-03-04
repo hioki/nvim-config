@@ -168,7 +168,8 @@ nnoremap <expr> [SCRAMBLED]S ':NeoSnippetSource ~/.vim/snippets/'.expand(&filety
 nnoremap <silent> [SCRAMBLED]@ :<C-u>OpenBrowser https://www.stackage.org/lts-8.24/hoogle?q=<C-r>=expand("<cword>")<CR><CR>
 nnoremap [SCRAMBLED]L :<C-u>UniteWithCursorWord line<CR>
 " nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
-nnoremap <silent> [SCRAMBLED]t :<C-u>TagbarToggle<CR>
+nnoremap <silent> [SCRAMBLED]s :<C-u>TagbarToggle<CR>
+nnoremap <silent> [SCRAMBLED]t :<C-u>Gbrowse<CR>
 
 "
 " Key mapping: [BUFFER]
