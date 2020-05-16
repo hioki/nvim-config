@@ -13,6 +13,7 @@ set number
 set nonumber
 set showmatch
 set nobackup
+set nowritebackup
 set noswapfile
 set expandtab
 set shiftwidth=2
