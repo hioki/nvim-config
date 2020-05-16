@@ -21,10 +21,9 @@ let g:rust_clip_command = 'pbcopy'
 '''
 
 [[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-on_ft = 'rust'
-rev = 'next'
-build = 'bash install.sh'
+repo = 'neoclide/coc.nvim'
+on_ft = ['rust', 'elm']
+rev = 'release'
 hook_add = '''
 set hidden
 
@@ -188,11 +187,6 @@ repo = 'Quramy/tsuquyomi'
 #
 # Elm
 #
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-on_ft = 'elm'
-rev = 'release'
-
 [[plugins]]
 repo = 'ElmCast/elm-vim'
 on_ft = 'elm'
