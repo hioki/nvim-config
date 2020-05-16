@@ -8,7 +8,6 @@ build = 'make -f make_mac.mak'
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_menu_width = 180
 
 let g:go_bin_path = $HOME."/go/bin"
