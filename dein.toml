@@ -197,10 +197,6 @@ let g:quickrun_config = {
   \   'command': 'cargo',
   \   'exec': ['%c run --quiet %s']
   \ },
-  \ 'rust.cargoscript': {
-  \   'command': 'cargo',
-  \   'exec': ['%c script %s']
-  \ },
   \ 'coffee': {
   \   'command': 'coffee',
   \   'outputter': 'buffer:filetype=javascript',
