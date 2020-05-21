@@ -1,0 +1,227 @@
+#
+# Go
+#
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'AndrewRadev/splitjoin.vim'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'neomake/neomake'
+on_ft = 'go'
+
+[[plugins]]
+repo = 'sebdah/vim-delve'
+on_ft = 'go'
+hook_add = '''
+let g:delve_backend = "native"
+let g:delve_breakpoint_sign = "o"
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_ft = 'go'
+build = 'make'
+depends = ['deoplete.nvim']
+hook_add = '''
+let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+'''
+
+#
+# Haskell
+#
+[[plugins]]
+repo = 'eagletmt/neco-ghc'
+on_ft = 'haskell'
+depends = 'deoplete.nvim'
+
+[[plugins]]
+repo = 'neovimhaskell/haskell-vim'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'alx741/vim-hindent'
+on_ft = 'haskell'
+
+[[plugins]]
+repo = 'parsonsmatt/intero-neovim'
+on_ft = 'haskell'
+
+#
+# Ruby
+#
+[[plugins]]
+repo = 'tpope/vim-rails.git'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'thoughtbot/vim-rspec'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'noprompt/vim-yardoc'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'w0rp/ale'
+on_ft = ['ruby', 'typescript', 'javascript', 'Dockerfile']
+hook_add = '''
+let g:ale_linters = {
+    \ 'vue': ['tslint', 'tsserver'],
+    \ 'ruby': ['rubocop'],
+    \ 'rust': ['analyzer'],
+    \ }
+let g:ale_fixers = {
+    \ 'javascript': ['prettier'],
+    \ 'typescript': ['prettier'],
+    \ 'ruby': ['rubocop'],
+    \ }
+'''
+
+[[plugins]]
+repo = 'janko-m/vim-test'
+on_ft = ['ruby', 'javascript']
+hook_add = '''
+nnoremap <silent> <C-\> :TestNearest -strategy=dispatch<CR>
+nnoremap <silent> t<C-n> :TestNearest -strategy=dispatch<CR>
+nnoremap <silent> t<C-f> :TestFile -strategy=dispatch<CR>
+'''
+
+#
+# PHP
+#
+[[plugins]]
+repo = 'phpactor/phpactor'
+on_ft = ['php']
+build = 'composer install'
+hook_add = '''
+nnoremap <silent><Leader>u  :<C-u>call phpactor#UseAdd()<CR>
+nnoremap <silent><Leader>mm :<C-u>call phpactor#ContextMenu()<CR>
+nnoremap <silent><Leader>nn :<C-u>call phpactor#Navigate()<CR>
+nnoremap <silent><Leader>o  :<C-u>call phpactor#GotoDefinition()<CR>
+nnoremap <silent><Leader>tt :<C-u>call phpactor#Transform()<CR>
+nnoremap <silent><Leader>cc :<C-u>call phpactor#ClassNew()<CR>
+nnoremap <silent><Leader>ee :<C-u>call phpactor#ExtractExpression(v:false)<CR>
+vnoremap <silent><Leader>ee :<C-u>call phpactor#ExtractExpression(v:true)<CR>
+vnoremap <silent><Leader>em :<C-u>call phpactor#ExtractMethod()<CR>
+nnoremap <silent><Leader>o  :<C-u>call phpactor#GotoDefinition()<CR>
+vnoremap <silent><Leader>hh :<C-u>call phpactor#Hover()<CR>
+'''
+
+[[plugins]]
+repo  = 'kristijanhusak/deoplete-phpactor'
+on_ft = ['php']
+
+#
+# Vue
+#
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = 'vue'
+hook_add = '''
+autocmd FileType vue syntax sync fromstart
+'''
+
+#
+# Coffee
+#
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+on_ft = 'coffee'
+
+#
+# GraphQL
+#
+repo = 'jparise/vim-graphql'
+on_ft = 'graphql'
+
+#
+# vim-lsp
+#
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+on_ft = ['javascript', 'ruby', 'go']
+hook_add = '''
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'javascript support using typescript-language-server',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+    \ 'whitelist': ['javascript', 'javascript.jsx'],
+    \ })
+endif
+
+if executable('solargraph')
+  " gem install solargraph
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'solargraph',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+    \ 'initialization_options': {"diagnostics": "true"},
+    \ 'whitelist': ['ruby'],
+    \ })
+endif
+
+if executable('gopls')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'gopls',
+    \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+    \ 'whitelist': ['go'],
+    \ })
+endif
+
+nnoremap <silent> <Space>lh :<C-u>LspHover<CR>
+nnoremap <silent> <Space>ld :<C-u>LspDefinition<CR>
+nnoremap <silent> <Space>lr :<C-u>LspRename<CR>
+nnoremap <silent> <Space>lf :<C-u>LspDocumentFormat<CR>
+
+let g:lsp_diagnostics_enabled = 0
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+on_ft = ['javascript', 'ruby', 'go']
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+on_ft = ['javascript', 'ruby', 'go']
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+on_ft = ['javascript', 'ruby', 'go']
+
+#
+# JavaScript
+#
+[[plugins]]
+repo = 'ryanolsonx/vim-lsp-javascript'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'MaxMEllon/vim-jsx-pretty'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'kristijanhusak/vim-js-file-import'
+on_ft = 'javascript'
+hook_add = '''
+let g:js_file_import_sort_after_insert = 1
+'''
