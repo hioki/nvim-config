@@ -1,0 +1,89 @@
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = '''
+let g:quickrun_config = {
+  \ "haskell" : {
+  \   "exec" : "stack runghc %s"
+  \ },
+  \ "markdown" : {
+  \   "outputter" : "null",
+  \   "command" : "open",
+  \   "cmdopt" : "-a",
+  \   "args" : "Marked",
+  \   "exec" : "%c %o %a %s",
+  \ },
+  \ "rst" : {
+  \   "outputter" : "null",
+  \   "command" : "open",
+  \   "cmdopt" : "-a",
+  \   "args" : "Marked",
+  \   "exec" : "%c %o %a %s",
+  \ },
+  \ 'ruby.bundle': {
+  \   'command': 'ruby',
+  \   'exec': 'bundle exec %c %s'
+  \ },
+  \ 'rspec/normal': {
+  \   'type': 'rspec/normal',
+  \   'command': 'rspec',
+  \   'exec': '%c %s'
+  \ },
+  \ 'rspec/bundle': {
+  \   'type': 'rspec/bundle',
+  \   'command': 'rspec',
+  \   'exec': 'bundle exec %c %s'
+  \ },
+  \ 'jsx': {
+  \   'command': './node_modules/.bin/babel',
+  \   'outputter': 'buffer:filetype=javascript',
+  \   'exec': ['%c %s']
+  \ },
+  \ 'dhall': {
+  \   'outputter': 'buffer:filetype=json',
+  \   'command': 'dhall-to-json',
+  \   'exec': ['%c --explain --pretty --omitNull <%s']
+  \ },
+  \ 'coffee': {
+  \   'command': 'coffee',
+  \   'outputter': 'buffer:filetype=javascript',
+  \   'exec': ['%c -cbp %s']
+  \ }}
+function! RSpecQuickrun()
+  let b:quickrun_config = {'type' : 'rspec/bundle'}
+endfunction
+autocmd BufReadPost *_spec.rb call RSpecQuickrun()
+'''
+
+[[plugins]]
+repo = 'iyuuya/denite-rails'
+hook_add = '''
+nnoremap <silent> <Leader>ab :<C-u>Denite -start-filter=1 rails:ability<CR>
+nnoremap <silent> <Leader>as :<C-u>Denite -start-filter=1 rails:asset<CR>
+nnoremap <silent> <Leader>at :<C-u>Denite -start-filter=1 rails:attribute<CR>
+nnoremap <silent> <Leader>cf :<C-u>Denite -start-filter=1 rails:config<CR>
+nnoremap <silent> <Leader>ct :<C-u>Denite -start-filter=1 rails:controller<CR>
+nnoremap <silent> <Leader>db :<C-u>Denite -start-filter=1 rails:db<CR>
+nnoremap <silent> <Leader>de :<C-u>Denite -start-filter=1 rails:decorator<CR>
+nnoremap <silent> <Leader>do :<C-u>Denite -start-filter=1 rails:domain<CR>
+nnoremap <silent> <Leader>fa :<C-u>Denite -start-filter=1 rails:factory<CR>
+nnoremap <silent> <Leader>fo :<C-u>Denite -start-filter=1 rails:form<CR>
+nnoremap <silent> <Leader>he :<C-u>Denite -start-filter=1 rails:helper<CR>
+nnoremap <silent> <Leader>jo :<C-u>Denite -start-filter=1 rails:job<CR>
+nnoremap <silent> <Leader>lo :<C-u>Denite -start-filter=1 rails:loyalty<CR>
+nnoremap <silent> <Leader>ma :<C-u>Denite -start-filter=1 rails:mailer<CR>
+nnoremap <silent> <Leader>mo :<C-u>Denite -start-filter=1 rails:model<CR>
+nnoremap <silent> <Leader>po :<C-u>Denite -start-filter=1 rails:policy<CR>
+nnoremap <silent> <Leader>pr :<C-u>Denite -start-filter=1 rails:presenter<CR>
+nnoremap <silent> <Leader>qu :<C-u>Denite -start-filter=1 rails:query<CR>
+nnoremap <silent> <Leader>sl :<C-u>Denite -start-filter=1 rails:serializer<CR>
+nnoremap <silent> <Leader>sv :<C-u>Denite -start-filter=1 rails:service<CR>
+nnoremap <silent> <Leader>sp :<C-u>Denite -start-filter=1 rails:spec<CR>
+nnoremap <silent> <Leader>te :<C-u>Denite -start-filter=1 rails:test<CR>
+nnoremap <silent> <Leader>up :<C-u>Denite -start-filter=1 rails:uploader<CR>
+nnoremap <silent> <Leader>va :<C-u>Denite -start-filter=1 rails:validator<CR>
+nnoremap <silent> <Leader>vi :<C-u>Denite -start-filter=1 rails:view<CR>
+'''
+depends = 'denite.nvim'
+
+[[plugins]]
+repo = 'chr4/nginx.vim'
