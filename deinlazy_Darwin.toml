@@ -133,3 +133,12 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 '''
+
+[[plugins]]
+repo = 'w0rp/ale'
+on_ft = ['Dockerfile']
+hook_add = '''
+let g:ale_linters = {
+    \ 'Dockerfile': ['hadolint'],
+    \ }
+'''
