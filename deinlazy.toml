@@ -53,6 +53,10 @@ hook_add = '''
 let g:previm_open_cmd = 'open -a "Google Chrome"'
 '''
 
+[[plugins]]
+on_ft = 'mermaid'
+repo = 'mracos/mermaid.vim'
+
 #
 # TypeScript
 #
