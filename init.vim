@@ -240,20 +240,3 @@ xnoremap [ENCODING] <Nop>
 nmap E [ENCODING]
 xmap E [ENCODING]
 nnoremap [ENCODING]S :<C-u>e ++enc=sjis<CR>
-
-"
-" Key mapping: [GIT]
-"
-nnoremap [GIT] <Nop>
-xnoremap [GIT] <Nop>
-nmap Z [GIT]
-xmap Z [GIT]
-nnoremap [GIT]Z :<C-u>x<CR>
-nnoremap [GIT]W :<C-u>Gwrite<CR>
-nnoremap [GIT]C :<C-u>Gcommit<CR>
-nnoremap [GIT]M :<C-u>Gcommit --amend --no-edit<CR>
-nnoremap [GIT]R :<C-u>Gread<CR>
-nnoremap [GIT]B :<C-u>Gblame<CR>
-nnoremap [GIT]D :<C-u>Gdiff<CR>
-nnoremap [GIT]L :<C-u>Glog<CR>
-nnoremap <silent> [GIT]S :<C-u>Dispatch hub browse<CR>
