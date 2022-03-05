@@ -165,7 +165,7 @@ nnoremap <silent> [SCRAMBLED]/ :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]D :<C-u>Gvdiff<CR>
 nnoremap <silent> [SCRAMBLED]k :<C-u>Denite -start-filter=1 -buffer-name=gtags_path gtags_path<CR>
 nnoremap [SCRAMBLED]r :<C-u>Denite -start-filter=1 -buffer-name=gtags_ref gtags_ref -input=
-nnoremap <silent> [SCRAMBLED]b :<C-u>Denite buffer<CR>
+nnoremap <silent> [SCRAMBLED]b :<C-u>Git blame<CR>
 nnoremap <silent> [SCRAMBLED]a :<C-u>A<CR>
 nnoremap <silent> [SCRAMBLED]f :<C-u>Denite -start-filter=1 file/rec<CR>
 
@@ -175,7 +175,7 @@ nnoremap <silent> [SCRAMBLED]@ :<C-u>OpenBrowser https://www.stackage.org/lts-8.
 nnoremap [SCRAMBLED]L :<C-u>UniteWithCursorWord line<CR>
 " nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
 nnoremap <silent> [SCRAMBLED]s :<C-u>TagbarToggle<CR>
-nnoremap <silent> [SCRAMBLED]t :<C-u>Gbrowse<CR>
+nnoremap <silent> [SCRAMBLED]t :<C-u>GBrowse<CR>
 nnoremap <silent> [SCRAMBLED]p :<C-u>PrevimOpen<CR>
 
 "
