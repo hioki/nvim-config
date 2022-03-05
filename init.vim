@@ -176,6 +176,7 @@ nnoremap [SCRAMBLED]L :<C-u>UniteWithCursorWord line<CR>
 " nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
 nnoremap <silent> [SCRAMBLED]s :<C-u>TagbarToggle<CR>
 nnoremap <silent> [SCRAMBLED]t :<C-u>Gbrowse<CR>
+nnoremap <silent> [SCRAMBLED]p :<C-u>PrevimOpen<CR>
 
 "
 " Key mapping: [BUFFER]

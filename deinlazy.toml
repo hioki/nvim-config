@@ -46,6 +46,13 @@ let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
 '''
 
+[[plugins]]
+repo = 'previm/previm'
+on_ft = 'markdown'
+hook_add = '''
+let g:previm_open_cmd = 'open -a "Google Chrome"'
+'''
+
 #
 # TypeScript
 #
