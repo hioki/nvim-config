@@ -73,8 +73,7 @@ endif
 filetype plugin indent on
 syntax enable
 
-let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = "$HOME/.anyenv/envs/pyenv/shims/python3"
 
 autocmd FileType gitcommit setlocal nofoldenable
 
@@ -163,8 +162,6 @@ nnoremap <silent> [SCRAMBLED]e :<C-u>NERDTree<CR>
 nnoremap <silent> [SCRAMBLED]d :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]/ :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]D :<C-u>Gvdiff<CR>
-nnoremap <silent> [SCRAMBLED]k :<C-u>Denite -start-filter=1 -buffer-name=gtags_path gtags_path<CR>
-nnoremap [SCRAMBLED]r :<C-u>Denite -start-filter=1 -buffer-name=gtags_ref gtags_ref -input=
 nnoremap <silent> [SCRAMBLED]b :<C-u>Git blame<CR>
 nnoremap <silent> [SCRAMBLED]a :<C-u>A<CR>
 nnoremap <silent> [SCRAMBLED]f :<C-u>Denite -start-filter=1 file/rec<CR>
@@ -224,7 +221,7 @@ xmap z [FILETYPE]
 nnoremap [FILETYPE] :<C-u>set filetype=
 nnoremap [FILETYPE]v :<C-u>set filetype=vim<CR>
 nnoremap [FILETYPE]m :<C-u>set filetype=markdown<CR>
-nnoremap [FILETYPE]d :<C-u>set filetype=diff<CR>
+nnoremap [FILETYPE]d :<C-u>set filetype=Dockerfile<CR>
 nnoremap [FILETYPE]r :<C-u>set filetype=ruby<CR>
 nnoremap [FILETYPE]b :<C-u>set filetype=ruby.bundle<CR>
 nnoremap [FILETYPE]j :<C-u>set filetype=javascript<CR>
