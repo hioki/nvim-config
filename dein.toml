@@ -214,3 +214,12 @@ let g:tagbar_autofocus = 1
 
 [[plugins]]
 repo = 'ekalinin/Dockerfile.vim'
+
+[[plugins]]
+repo = 'github/copilot.vim.git'
+
+[[plugins]]
+repo = 'Shougo/ddx.vim'
+hook_add = '''
+call ddx#custom#patch_global({'ui': 'hex'})
+'''
