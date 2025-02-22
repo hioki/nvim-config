@@ -55,14 +55,6 @@ endfunction
 '''
 
 [[plugins]]
-repo = 'ozelentok/denite-gtags'
-depends = 'denite.nvim'
-hook_add = '''
-nnoremap <silent> K :<C-u>GtagsCursor<CR>
-nnoremap <silent> R :<C-u>DeniteCursorWord -immediately-1 -buffer-name=gtags_ref gtags_ref<CR>
-'''
-
-[[plugins]]
 repo = 'Shougo/unite.vim'
 hook_add = '''
 autocmd FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
@@ -212,20 +204,6 @@ repo = 'sbdchd/neoformat'
 
 [[plugins]]
 repo = 'ap/vim-buftabline'
-
-[[plugins]]
-repo = 'lighttiger2505/gtags.vim'
-hook_add = '''
-let g:Gtags_Auto_Map = 0
-let g:Gtags_OpenQuickfixWindow = 1
-'''
-
-[[plugins]]
-repo = 'jsfaint/gen_tags.vim'
-hook_add = '''
-let g:gen_tags#ctags_auto_gen = 1
-let g:gen_tags#gtags_auto_gen = 1
-'''
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
