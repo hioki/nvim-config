@@ -59,24 +59,6 @@ require("lazy").setup({
     end,
   },
   {
-    "Shougo/denite.nvim",
-    config = function()
-      vim.cmd [[
-        autocmd FileType denite call s:denite_my_settings()
-        function! s:denite_my_settings() abort
-          call denite#custom#var('grep','command',['rg'])
-          nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-          nnoremap <silent><buffer><expr> d   denite#do_map('do_action','delete')
-          nnoremap <silent><buffer><expr> p   denite#do_map('do_action','preview')
-          nnoremap <silent><buffer><expr> q   denite#do_map('quit')
-          nnoremap <silent><buffer><expr> i   denite#do_map('open_filter_buffer')
-          nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-          nnoremap <silent><buffer><expr> *   denite#do_map('toggle_select_all').'j'
-        endfunction
-      ]]
-    end,
-  },
-  {
     "Shougo/unite.vim",
     config = function()
       vim.cmd [[
@@ -93,11 +75,11 @@ require("lazy").setup({
     config = function()
       vim.cmd [[
       call vimfiler#custom#profile('default','context',{
-            \ 'safe'       : 0,
-            \ 'auto_expand': 1,
-            \ 'parent'     : 0
-            \ })
-    ]]
+        \ 'safe'       : 0,
+        \ 'auto_expand': 1,
+        \ 'parent'     : 0
+        \ })
+      ]]
 
       vim.g.vimfiler_as_default_explorer = true
       vim.g.vimfiler_tree_leaf_icon      = " "
