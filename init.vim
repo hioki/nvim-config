@@ -74,7 +74,7 @@ END
 
 let g:python3_host_prog = "$HOME/.anyenv/envs/pyenv/shims/python3"
 
-autocmd FileType gitcommit setlocal nofoldenable
+autocmd FileType gitcommit setlocal nofoldenable tw=0 wrap formatoptions<
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.uml set filetype=plantuml
 autocmd BufRead,BufNewFile *.tera set ft=jinja
