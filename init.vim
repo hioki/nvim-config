@@ -39,6 +39,8 @@ set whichwrap=b,s,h,l,<,>,[,]
 let s:dein_cache_path = expand('~/.cache/nvim/dein')
 let s:dein_dir        = s:dein_cache_path . '/repos/github.com/Shougo/dein.vim'
 
+let g:python3_host_prog = "$HOME/.anyenv/envs/pyenv/shims/python3"
+
 if &runtimepath !~ '/dein.vim'
   if !isdirectory(s:dein_dir)
     execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
@@ -62,14 +64,10 @@ lua << END
 require('lualine').setup()
 END
 
-let g:python3_host_prog = "$HOME/.anyenv/envs/pyenv/shims/python3"
-
 autocmd FileType gitcommit setlocal nofoldenable tw=0 wrap formatoptions<
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.uml set filetype=plantuml
 autocmd BufRead,BufNewFile *.tera set ft=jinja
-autocmd TermOpen * setlocal norelativenumber
-autocmd TermOpen * setlocal nonumber
 autocmd FileType quickrun AnsiEsc
 autocmd FileType qf nnoremap <CR> <C-w><CR><C-w>T
 
