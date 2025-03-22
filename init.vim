@@ -15,10 +15,10 @@ set showmatch
 set nobackup
 set nowritebackup
 set noswapfile
-set expandtab
-set shiftwidth=2
+set noexpandtab
 set list
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 set visualbell t_vb=
 set wildmode=longest:list
 set listchars=tab:>.,trail:_,extends:>,precedes:<
@@ -80,10 +80,6 @@ autocmd BufRead,BufNewFile *.uml set filetype=plantuml
 autocmd BufRead,BufNewFile *.tera set ft=jinja
 autocmd TermOpen * setlocal norelativenumber
 autocmd TermOpen * setlocal nonumber
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-autocmd BufNewFile,BufRead *.json setlocal noexpandtab tabstop=4 shiftwidth=4
-autocmd BufNewFile,BufRead *.sh setlocal noexpandtab tabstop=4 shiftwidth=4
-autocmd BufNewFile,BufRead *.bash setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType quickrun AnsiEsc
 autocmd FileType qf nnoremap <CR> <C-w><CR><C-w>T
 
