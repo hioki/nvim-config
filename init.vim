@@ -1,47 +1,40 @@
-let mapleader = ","
-
-set mouse=a
 set termguicolors
-set nofoldenable
-set laststatus=2
-set ambiwidth=double
+set number
+set showmatch
+set list
 set autoread
 set hidden
-set backspace=indent,eol,start
-set formatoptions=lmoq
-set number
-set nonumber
-set showmatch
+set lazyredraw
+set autoindent
+set smartindent
+set smarttab
+set incsearch
+set hlsearch
+set smartcase
+set ttimeout
+set nofoldenable
 set nobackup
 set nowritebackup
 set noswapfile
 set noexpandtab
-set list
+set nowrapscan
+set noignorecase
 set shiftwidth=4
 set tabstop=4
+set laststatus=2
+set textwidth=0
+set timeoutlen=500
+set ttimeoutlen=50
+set mouse=a
+set ambiwidth=double
+set backspace=indent,eol,start
+set formatoptions=lmoq
 set visualbell t_vb=
 set wildmode=longest:list
 set listchars=tab:>.,trail:_,extends:>,precedes:<
 set display=uhex
-set lazyredraw
-set autoindent
-set smartindent
 set directory-=.
-set smarttab
-set textwidth=0
-set timeoutlen=500
-set incsearch
-set nowrapscan
-set hlsearch
-set noignorecase
-set smartcase
 set whichwrap=b,s,h,l,<,>,[,]
-set ttimeout
-set ttimeoutlen=50
-
-if &compatible
-  set nocompatible
-endif
 
 let s:dein_cache_path = expand('~/.cache/nvim/dein')
 let s:dein_dir        = s:dein_cache_path . '/repos/github.com/Shougo/dein.vim'
@@ -64,9 +57,6 @@ endif
 if dein#check_install()
   call dein#install()
 endif
-
-filetype plugin indent on
-syntax enable
 
 lua << END
 require('lualine').setup()
