@@ -328,5 +328,6 @@ vim.api.nvim_create_autocmd("FileType", {
 require("lualine").setup({
   options = {
     icons_enabled = false,
+    theme = "iceberg_dark",
   }
 })
