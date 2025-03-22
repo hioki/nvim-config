@@ -92,22 +92,32 @@ require("lazy").setup({
     dependencies = "Shougo/unite.vim",
     config = function()
       vim.cmd [[
-        call vimfiler#custom#profile('default','context',{ 'safe':0,'auto_expand':1,'parent':0 })
-        let g:vimfiler_as_default_explorer=1
-        let g:vimfiler_tree_leaf_icon=' '
-        let g:vimfiler_tree_opened_icon='▾'
-        let g:vimfiler_tree_closed_icon='▸'
-        let g:vimfiler_file_icon='-'
-        let g:vimfiler_marked_file_icon='*'
-        autocmd FileType vimfiler call s:vimfiler_my_settings()
-        function! s:vimfiler_my_settings() abort
-          nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('vsplit')
-          nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('split')
-          nnoremap <silent><buffer><expr> t vimfiler#do_action('tabopen')
-          nunmap <buffer> <C-l>
-        endfunction
-        nnoremap <silent> fe :VimFilerBufferDir -quit<CR>
-      ]]
+      call vimfiler#custom#profile('default','context',{
+            \ 'safe'       : 0,
+            \ 'auto_expand': 1,
+            \ 'parent'     : 0
+            \ })
+    ]]
+
+      vim.g.vimfiler_as_default_explorer = true
+      vim.g.vimfiler_tree_leaf_icon      = " "
+      vim.g.vimfiler_tree_opened_icon    = "▾"
+      vim.g.vimfiler_tree_closed_icon    = "▸"
+      vim.g.vimfiler_file_icon           = "-"
+      vim.g.vimfiler_marked_file_icon    = "*"
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "vimfiler",
+        callback = function()
+          local opts = { noremap = true, silent = true, buffer = true }
+          vim.keymap.set("n", "s", "<Cmd>lua vimfiler#do_switch_action('vsplit')<CR>", opts)
+          vim.keymap.set("n", "v", "<Cmd>lua vimfiler#do_switch_action('split')<CR>", opts)
+          vim.keymap.set("n", "t", "<Cmd>lua vimfiler#do_action('tabopen')<CR>", opts)
+          vim.keymap.del("n", "<C-l>", { buffer = true })
+        end,
+      })
+
+      vim.keymap.set("n", "fe", ":VimFilerBufferDir -quit<CR>", { noremap = true, silent = true })
     end,
   },
   {
