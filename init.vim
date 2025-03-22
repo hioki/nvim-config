@@ -73,6 +73,10 @@ endif
 filetype plugin indent on
 syntax enable
 
+lua << END
+require('lualine').setup()
+END
+
 let g:python3_host_prog = "$HOME/.anyenv/envs/pyenv/shims/python3"
 
 autocmd FileType gitcommit setlocal nofoldenable

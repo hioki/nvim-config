@@ -190,14 +190,7 @@ repo = 'junegunn/vim-easy-align'
 repo = 'simeji/winresizer'
 
 [[plugins]]
-repo = 'vim-airline/vim-airline'
-hook_add = '''
-let g:airline#extensions#branch#enabled = 0
-'''
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
-depends = 'vim-airline'
+repo = 'nvim-lualine/lualine.nvim'
 
 [[plugins]]
 repo = 'sbdchd/neoformat'
