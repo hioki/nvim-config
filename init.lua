@@ -1,7 +1,13 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
-    lazypath })
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -12,10 +18,12 @@ require("lazy").setup({
       "cocopon/iceberg.vim",
       lazy = false,
       config = function()
-        vim.cmd [[
-        au VimEnter * nested colorscheme iceberg
-        au VimEnter * highlight Visual ctermbg=16
-      ]]
+        vim.api.nvim_create_autocmd("VimEnter", {
+          callback = function()
+            vim.cmd("colorscheme iceberg")
+            vim.api.nvim_set_hl(0, "Visual", { ctermbg = 16 })
+          end,
+        })
       end,
     },
     {
@@ -28,7 +36,7 @@ require("lazy").setup({
       lazy = false,
       dependencies = "Shougo/unite.vim",
       config = function()
-        vim.cmd [[ call vimfiler#custom#profile('default','context',{'safe': 0, 'auto_expand': 1, 'parent': 0}) ]]
+        vim.fn['vimfiler#custom#profile']("default", "context", { safe = 0, auto_expand = 1, parent = 0 })
         vim.g.vimfiler_as_default_explorer = true
         vim.g.vimfiler_tree_leaf_icon      = " "
         vim.g.vimfiler_tree_opened_icon    = "▾"
@@ -48,7 +56,11 @@ require("lazy").setup({
         vim.keymap.set("n", "fe", ":VimFilerBufferDir -quit<CR>", { noremap = true, silent = true })
       end,
     },
-    { "Shougo/vimproc.vim", build = "make -f make_mac.mak" },
+    {
+      "Shougo/vimproc.vim",
+      event = { "BufReadPost", "BufNewFile" },
+      build = "make -f make_mac.mak"
+    },
     {
       "Shougo/deoplete.nvim",
       config = function()
@@ -60,16 +72,21 @@ require("lazy").setup({
       "Shougo/unite.vim",
       cmd = "Unite",
       config = function()
-        vim.cmd [[
-        autocmd FileType unite nnoremap <silent><buffer> <ESC><ESC> :q<CR>
-        autocmd FileType unite inoremap <silent><buffer> <ESC><ESC> <ESC>:q<CR>
-        autocmd FileType unite nnoremap <silent><buffer> <C-g> :q<CR>
-        autocmd FileType unite inoremap <silent><buffer> <C-g> <ESC>:q<CR>
-      ]]
-      end,
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = "unite",
+          callback = function()
+            local opts = { noremap = true, silent = true, buffer = true }
+            vim.keymap.set("n", "<ESC><ESC>", "<cmd>q<CR>", opts)
+            vim.keymap.set("n", "<C-g>", "<cmd>q<CR>", opts)
+            vim.keymap.set("i", "<ESC><ESC>", "<ESC>:q<CR>", opts)
+            vim.keymap.set("i", "<C-g>", "<ESC>:q<CR>", opts)
+          end,
+        })
+      end
     },
     {
       "thinca/vim-quickrun",
+      event = { "BufReadPost", "BufNewFile" },
       config = function()
         vim.g.quickrun_config = {
           _ = { runner = "vimproc", ["runner/vimproc/updatetime"] = 60 },
@@ -96,7 +113,6 @@ require("lazy").setup({
     "vim-scripts/vcscommand.vim",
     "tpope/vim-dispatch",
     "simeji/winresizer",
-    "sbdchd/neoformat",
     "github/copilot.vim",
 
     {
@@ -184,7 +200,7 @@ vim.opt.mouse = "a"
 vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.formatoptions = "lmoq"
 vim.opt.visualbell = true
-vim.cmd([[set t_vb=]])
+vim.cmd("set t_vb=")
 vim.opt.wildmode = { "longest", "list" }
 vim.opt.listchars = { tab = ">.", trail = "_", extends = ">", precedes = "<" }
 vim.opt.display = "uhex"
@@ -291,13 +307,21 @@ vim.keymap.set("n", "sdl", "<C-w>l:bd!<CR>", { silent = true })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
   callback = function()
-    vim.opt_local.foldenable = false; vim.opt_local.tw = 0; vim.opt_local.wrap = true; vim.opt_local.formatoptions = ""
+    vim.opt_local.foldenable = false
+    vim.opt_local.tw = 0
+    vim.opt_local.wrap = true
+    vim.opt_local.formatoptions = ""
   end,
 })
-vim.api.nvim_create_autocmd("FileType", { pattern = "quickrun", command = "AnsiEsc" })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "quickrun",
+  command = "AnsiEsc",
+})
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
-  callback = function() vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-w><CR><C-w>T", { noremap = true, silent = true }) end,
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-w><CR><C-w>T", { noremap = true, silent = true })
+  end,
 })
 
 -- Lualine setup
