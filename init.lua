@@ -41,28 +41,14 @@ vim.opt.whichwrap:append("b,s,h,l,<,>,[,]")
 -- Python provider
 vim.g.python3_host_prog = os.getenv("HOME") .. "/.anyenv/envs/pyenv/shims/python3"
 
--- Dein plugin manager bootstrap
-local dein_cache = vim.fn.expand("~/.cache/nvim/dein")
-local dein_dir = dein_cache .. "/repos/github.com/Shougo/dein.vim"
-
-if not string.find(vim.o.runtimepath, "dein.vim") then
-  if vim.fn.isdirectory(dein_dir) == 0 then
-    vim.fn.system({ "git", "clone", "https://github.com/Shougo/dein.vim", dein_dir })
-  end
-  vim.opt.runtimepath:append(vim.fn.fnamemodify(dein_dir, ":p"))
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+    lazypath })
 end
+vim.opt.rtp:prepend(lazypath)
 
-if vim.fn["dein#load_state"](dein_cache) == 1 then
-  vim.fn["dein#begin"](dein_cache)
-  vim.fn["dein#load_toml"](vim.fn.expand("~/.config/nvim/dein.toml"), { lazy = 0 })
-  vim.fn["dein#load_toml"](vim.fn.expand("~/.config/nvim/deinlazy.toml"), { lazy = 1 })
-  vim.fn["dein#end"]()
-  vim.fn["dein#save_state"]()
-end
-
-if vim.fn["dein#check_install"]() == 1 then
-  vim.fn["dein#install"]()
-end
+require("lazy").setup("plugins")
 
 -- Key mappings
 local map = vim.api.nvim_set_keymap
@@ -165,7 +151,9 @@ map("n", "sdl", "<C-w>l:bd!<CR>", opts)
 -- FileType autocommands
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
-  callback = function() vim.opt_local.foldenable = false; vim.opt_local.tw = 0; vim.opt_local.wrap = true; vim.opt_local.formatoptions = "" end,
+  callback = function()
+    vim.opt_local.foldenable = false; vim.opt_local.tw = 0; vim.opt_local.wrap = true; vim.opt_local.formatoptions = ""
+  end,
 })
 vim.api.nvim_create_autocmd("FileType", { pattern = "quickrun", command = "AnsiEsc" })
 vim.api.nvim_create_autocmd("FileType", {
