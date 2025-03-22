@@ -1,8 +1,0 @@
-[[plugins]]
-repo = 'w0rp/ale'
-on_ft = ['Dockerfile']
-hook_add = '''
-let g:ale_linters = {
-    \ 'Dockerfile': ['hadolint'],
-    \ }
-'''

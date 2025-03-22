@@ -50,59 +50,11 @@ let g:mkdp_page_title = '「${name}」'
 on_ft = 'mermaid'
 repo = 'mracos/mermaid.vim'
 
-#
-# TypeScript
-#
 [[plugins]]
-on_ft = 'typescript'
-repo = 'leafgarland/typescript-vim'
-
-[[plugins]]
-on_ft = 'typescript'
-repo = 'Quramy/tsuquyomi'
-
-#
-# Elm
-#
-[[plugins]]
-repo = 'ElmCast/elm-vim'
-on_ft = 'elm'
-
-#
-# CSS, HTML
-#
-[[plugins]]
-repo = 'mattn/emmet-vim'
-on_i = 1
-on_ft = ['css', 'html']
+repo = 'w0rp/ale'
+on_ft = ['Dockerfile']
 hook_add = '''
-let g:user_zen_settings = {'indentation' : '  '}
-'''
-
-#
-# jinja
-#
-repo = 'Glench/Vim-Jinja2-Syntax'
-on_ft = 'jinja'
-
-#
-# SQL
-#
-[[plugins]]
-repo = 'b4b4r07/vim-sqlfmt'
-on_ft = 'sql'
-hook_add = '''
-let g:sqlfmt_command = "sqlfmt"
-let g:sqlfmt_options = ""
-let g:sqlfmt_auto = 0
-'''
-
-#
-# Terraform
-#
-[[plugins]]
-repo = 'hashivim/vim-terraform'
-on_ft = 'terraform'
-hook_add = '''
-let g:terraform_fmt_on_save = 1
+let g:ale_linters = {
+    \ 'Dockerfile': ['hadolint'],
+    \ }
 '''

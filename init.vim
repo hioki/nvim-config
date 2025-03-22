@@ -57,11 +57,6 @@ if dein#load_state(s:dein_cache_path)
   call dein#begin(s:dein_cache_path)
   call dein#load_toml('~/.config/nvim/dein.toml',     {'lazy': 0})
   call dein#load_toml('~/.config/nvim/deinlazy.toml', {'lazy': 1})
-  if system('uname -s') == "Darwin\n"
-    call dein#load_toml('~/.config/nvim/deinlazy_Darwin.toml', {'lazy': 1})
-  else
-    call dein#load_toml('~/.config/nvim/deinlazy_Linux.toml', {'lazy': 1})
-  endif
   call dein#end()
   call dein#save_state()
 endif
@@ -131,7 +126,7 @@ nnoremap <C-u> <C-t>
 "
 vnoremap <Space> :EasyAlign *
 vnoremap \ :EasyAlign *
-vnoremap - :Alignta 
+vnoremap - :Alignta
 vnoremap <silent> <C-p> "0p<CR>
 vnoremap v $h
 
