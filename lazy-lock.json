@@ -2,8 +2,6 @@
   "auto-pairs": { "branch": "master", "commit": "39f06b873a8449af8ff6a3eee716d3da14d63a76" },
   "camelcasemotion": { "branch": "master", "commit": "8db17bdee3f42bd71839ead2a84b2ee1916e45c2" },
   "copilot.vim": { "branch": "release", "commit": "5015939f131627a6a332c9e3ecad9a7cb4c2e549" },
-  "dein.vim": { "branch": "master", "commit": "dd5e1cc6ce869253b9c68284d6d885f75bfcfd6a" },
-  "denite.nvim": { "branch": "master", "commit": "055dd686c274a293dc4b7365be07c159148c31dd" },
   "deoplete.nvim": { "branch": "master", "commit": "e5a47d4a2f0b2b6f568e708163e2354097e611c6" },
   "iceberg.vim": { "branch": "master", "commit": "23835d5ed696436f716cbfdb56a93a7850fe3b18" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
