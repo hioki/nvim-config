@@ -14,23 +14,6 @@ let g:go_bin_path = $HOME."/go/bin"
 '''
 
 [[plugins]]
-repo = 'Shougo/neosnippet'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-depends = 'neosnippet'
-hook_add = '''
-let g:neocomplcache_snippets_dir = '~/.config/nvim/snippets'
-let g:neosnippet#snippets_directory = '~/.config/nvim/snippets'
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-'''
-
-[[plugins]]
 repo = 'Shougo/denite.nvim'
 hook_add = '''
 autocmd FileType denite call s:denite_my_settings()
@@ -175,16 +158,7 @@ repo = 'tpope/vim-rhubarb'
 repo = 'vim-scripts/vcscommand.vim'
 
 [[plugins]]
-repo = 'tpope/vim-abolish'
-
-[[plugins]]
 repo = 'tpope/vim-dispatch'
-
-[[plugins]]
-repo = 'h1mesuke/vim-alignta'
-
-[[plugins]]
-repo = 'junegunn/vim-easy-align'
 
 [[plugins]]
 repo = 'simeji/winresizer'
@@ -196,23 +170,4 @@ repo = 'nvim-lualine/lualine.nvim'
 repo = 'sbdchd/neoformat'
 
 [[plugins]]
-repo = 'ap/vim-buftabline'
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = '''
-nnoremap <silent> T :<C-u>TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-'''
-
-[[plugins]]
-repo = 'ekalinin/Dockerfile.vim'
-
-[[plugins]]
 repo = 'github/copilot.vim.git'
-
-[[plugins]]
-repo = 'Shougo/ddx.vim'
-hook_add = '''
-call ddx#custom#patch_global({'ui': 'hex'})
-'''

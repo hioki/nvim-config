@@ -1,21 +1,12 @@
-#
-# TOML
-#
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
-#
-# Quickrun
-#
 [[plugins]]
 repo = 'powerman/vim-plugin-AnsiEsc'
 on_ft = 'quickrun'
 depends = 'vim-quickrun'
 
-#
-# Markdown
-#
 [[plugins]]
 repo = 'iamcco/markdown-preview.nvim'
 on_ft = 'markdown'
@@ -44,17 +35,4 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
-'''
-
-[[plugins]]
-on_ft = 'mermaid'
-repo = 'mracos/mermaid.vim'
-
-[[plugins]]
-repo = 'w0rp/ale'
-on_ft = ['Dockerfile']
-hook_add = '''
-let g:ale_linters = {
-    \ 'Dockerfile': ['hadolint'],
-    \ }
 '''
