@@ -60,20 +60,6 @@ if dein#check_install()
   call dein#install()
 endif
 
-lua << END
-require('lualine').setup()
-END
-
-autocmd FileType gitcommit setlocal nofoldenable tw=0 wrap formatoptions<
-autocmd BufRead,BufNewFile *.md set filetype=markdown
-autocmd BufRead,BufNewFile *.uml set filetype=plantuml
-autocmd BufRead,BufNewFile *.tera set ft=jinja
-autocmd FileType quickrun AnsiEsc
-autocmd FileType qf nnoremap <CR> <C-w><CR><C-w>T
-
-"
-" Key mapping: Natural movement
-"
 nnoremap j gj
 onoremap j gj
 xnoremap j gj
@@ -81,62 +67,34 @@ nnoremap k gk
 onoremap k gk
 xnoremap k gk
 
-"
-" Key mapping: Pane movement
-"
+nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
+
+nnoremap <silent> Q :<C-u>set paste!<CR>
+nnoremap <silent> W :<C-u>set wrap!<CR>
+nnoremap <silent> S :<C-u>set number!<CR>
+
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-l> <C-w>l
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 
-"
-" Key mapping: Matchit
-"
-runtime macros/matchit.vim
-nmap <Tab> %
-vmap <Tab> %
-vmap m %
-
-"
-" Key mapping: Normal Mode
-"
-nnoremap <silent> Q :<C-u>set paste!<CR>
-nnoremap <silent> W :<C-u>set wrap!<CR>
-nnoremap <silent> S :<C-u>set number!<CR>
-nnoremap <silent> Y :<C-u>syntax sync fromstart<CR>
-nnoremap <silent> F :<C-u>:w !pbcopy<CR><CR>
-vnoremap <silent> F :<C-u>:'<,'>w !pbcopy<CR><CR>
 nnoremap <silent> <C-n> :<C-u>bnext<CR>
 nnoremap <silent> <C-p> :<C-u>bprevious<CR>
-nnoremap <silent> <C-Up> :<C-u>cprevious<CR>
-nnoremap <silent> <C-Down> :<C-u>cnext<CR>
-nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
-" Key mapping: Tag Jump
-nnoremap <C-\> g<C-]>
-nnoremap <C-u> <C-t>
-
-"
-" Key mapping: Visual Mode
-"
-vnoremap <Space> :EasyAlign *
-vnoremap \ :EasyAlign *
-vnoremap - :Alignta
-vnoremap <silent> <C-p> "0p<CR>
+vnoremap <silent> F :<C-u>:'<,'>w !pbcopy<CR><CR>
 vnoremap v $h
 
-"
-" Key mapping: Insert Mode
-"
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 inoremap <C-b> <C-o>O
 inoremap <C-f> <C-o>o
 inoremap <C-d> <Del>
 
-"
-" Key mapping: [SCRAMBLED]
-"
+runtime macros/matchit.vim
+nmap <Tab> %
+vmap <Tab> %
+vmap m %
+
 nnoremap [SCRAMBLED] <Nop>
 xnoremap [SCRAMBLED] <Nop>
 nmap g [SCRAMBLED]
@@ -152,26 +110,10 @@ nnoremap [SCRAMBLED]l $
 vnoremap [SCRAMBLED]l $<Left>
 nnoremap <silent> [SCRAMBLED]<Space> :<C-u>QuickRun<CR>
 nnoremap <silent> [SCRAMBLED]j :<C-u>VimFilerBufferDir -quit<CR>
-nnoremap <silent> [SCRAMBLED]e :<C-u>NERDTree<CR>
 nnoremap <silent> [SCRAMBLED]d :<C-u>VCSDiff<CR>
-nnoremap <silent> [SCRAMBLED]/ :<C-u>VCSDiff<CR>
 nnoremap <silent> [SCRAMBLED]D :<C-u>Gvdiff<CR>
 nnoremap <silent> [SCRAMBLED]b :<C-u>Git blame<CR>
-nnoremap <silent> [SCRAMBLED]a :<C-u>A<CR>
-nnoremap <silent> [SCRAMBLED]f :<C-u>Denite -start-filter=1 file/rec<CR>
 
-nnoremap <expr> [SCRAMBLED]E ':NeoSnippetEdit '.expand(&filetype).'<CR>'
-nnoremap <expr> [SCRAMBLED]S ':NeoSnippetSource ~/.vim/snippets/'.expand(&filetype).'.snip<CR>'
-nnoremap <silent> [SCRAMBLED]@ :<C-u>OpenBrowser https://www.stackage.org/lts-8.24/hoogle?q=<C-r>=expand("<cword>")<CR><CR>
-nnoremap [SCRAMBLED]L :<C-u>UniteWithCursorWord line<CR>
-" nnoremap <silent> [SCRAMBLED]<CR> :<C-u>TREPLSendFile<CR>
-nnoremap <silent> [SCRAMBLED]s :<C-u>TagbarToggle<CR>
-nnoremap <silent> [SCRAMBLED]t :<C-u>GBrowse<CR>
-nnoremap <silent> [SCRAMBLED]p :<C-u>PrevimOpen<CR>
-
-"
-" Key mapping: [BUFFER]
-"
 nnoremap [BUFFER] <Nop>
 xnoremap [BUFFER] <Nop>
 nmap <CR> [BUFFER]
@@ -185,9 +127,6 @@ nnoremap <silent> [BUFFER]d :<C-u>bd!<CR>
 nnoremap <silent> [BUFFER]q :<C-u>q!<CR>
 nnoremap <silent> [BUFFER]Q :<C-u>qall!<CR>
 
-"
-" Key mapping: [WINDOW]
-"
 nnoremap [WINDOW] <Nop>
 xnoremap [WINDOW] <Nop>
 nmap s [WINDOW]
@@ -205,29 +144,16 @@ nnoremap [WINDOW]dj <C-w>j:<C-u>bd!<CR>
 nnoremap [WINDOW]dk <C-w>k:<C-u>bd!<CR>
 nnoremap [WINDOW]dl <C-w>l:<C-u>bd!<CR>
 
-"
-" Key mapping: [FILETYPE]
-"
 nnoremap [FILETYPE] <Nop>
 xnoremap [FILETYPE] <Nop>
 nmap z [FILETYPE]
 xmap z [FILETYPE]
 nnoremap [FILETYPE] :<C-u>set filetype=
-nnoremap [FILETYPE]v :<C-u>set filetype=vim<CR>
-nnoremap [FILETYPE]m :<C-u>set filetype=markdown<CR>
-nnoremap [FILETYPE]d :<C-u>set filetype=Dockerfile<CR>
-nnoremap [FILETYPE]r :<C-u>set filetype=ruby<CR>
-nnoremap [FILETYPE]b :<C-u>set filetype=ruby.bundle<CR>
-nnoremap [FILETYPE]j :<C-u>set filetype=javascript<CR>
-nnoremap [FILETYPE]h :<C-u>set filetype=html<CR>
-nnoremap [FILETYPE]c :<C-u>set filetype=coffee<CR>
-nnoremap [FILETYPE]k :<C-u>set filetype=haskell<CR>
 
-"
-" Key mapping: [ENCODING]
-"
-nnoremap [ENCODING] <Nop>
-xnoremap [ENCODING] <Nop>
-nmap E [ENCODING]
-xmap E [ENCODING]
-nnoremap [ENCODING]S :<C-u>e ++enc=sjis<CR>
+autocmd FileType gitcommit setlocal nofoldenable tw=0 wrap formatoptions<
+autocmd FileType quickrun AnsiEsc
+autocmd FileType qf nnoremap <CR> <C-w><CR><C-w>T
+
+lua << END
+require('lualine').setup()
+END
