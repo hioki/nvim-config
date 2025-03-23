@@ -328,15 +328,12 @@ for _, opt in ipairs({
   "backup",
   "writebackup",
   "swapfile",
-  "expandtab",
   "wrapscan",
   "ignorecase",
 }) do
   vim.opt[opt] = false
 end
 
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
 vim.opt.laststatus = 2
 vim.opt.textwidth = 0
 vim.opt.timeoutlen = 500
@@ -453,5 +450,13 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   callback = function()
     vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-w><CR><C-w>T", { noremap = true, silent = true })
+  end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "sh", "bash", "rust", "python" },
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
   end,
 })
