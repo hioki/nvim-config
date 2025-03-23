@@ -247,9 +247,6 @@ vim.opt.whichwrap:append("b,s,h,l,<,>,[,]")
 vim.opt.updatetime = 300
 vim.opt.signcolumn = "yes"
 
--- Python provider
-vim.g.python3_host_prog = os.getenv("HOME") .. "/.anyenv/envs/pyenv/shims/python3"
-
 -- Move by display lines
 for _, mode in ipairs({ "n", "o", "x" }) do
   vim.keymap.set(mode, "j", "gj", { silent = true })
