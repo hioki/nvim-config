@@ -85,24 +85,13 @@ require("lazy").setup({
     },
     {
       'nvim-telescope/telescope.nvim',
+      lazy = false,
       branch = '0.1.x',
-      dependencies = { 'nvim-lua/plenary.nvim' }
-    },
-    {
-      "Shougo/unite.vim",
-      cmd = "Unite",
+      dependencies = { 'nvim-lua/plenary.nvim' },
       config = function()
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = "unite",
-          callback = function()
-            local opts = { noremap = true, silent = true, buffer = true }
-            vim.keymap.set("n", "<ESC><ESC>", "<cmd>q<CR>", opts)
-            vim.keymap.set("n", "<C-g>", "<cmd>q<CR>", opts)
-            vim.keymap.set("i", "<ESC><ESC>", "<ESC>:q<CR>", opts)
-            vim.keymap.set("i", "<C-g>", "<ESC>:q<CR>", opts)
-          end,
-        })
-      end,
+        local t = require("telescope.builtin")
+        vim.keymap.set("n", "<Leader>k", t.live_grep, { desc = "Live grep" })
+      end
     },
     {
       "is0n/jaq-nvim",
