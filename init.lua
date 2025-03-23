@@ -74,10 +74,21 @@ require("lazy").setup({
     {
       "neovim/nvim-lspconfig",
       lazy = false,
-      dependencies = { "hrsh7th/cmp-nvim-lsp" },
       config = function()
-        require("lspconfig").pyright.setup({
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        local caps = require("cmp_nvim_lsp").default_capabilities()
+        require("lspconfig").rust_analyzer.setup({ capabilities = caps })
+        require("lspconfig").pyright.setup({ capabilities = caps })
+        require("lspconfig").lua_ls.setup({ capabilities = caps })
+      end,
+    },
+    {
+      "williamboman/mason.nvim",
+      lazy = false,
+      dependencies = { "williamboman/mason-lspconfig.nvim" },
+      config = function()
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+          ensure_installed = { "rust_analyzer", "pyright", "lua_ls" },
         })
       end,
     },
