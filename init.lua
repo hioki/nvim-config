@@ -63,29 +63,12 @@ require("lazy").setup({
       end,
     },
     {
-      "Shougo/vimfiler.vim",
-      cmd = "VimFilerBufferDir",
+      "kyazdani42/nvim-tree.lua",
+      dependencies = "kyazdani42/nvim-web-devicons",
       lazy = false,
-      dependencies = "Shougo/unite.vim",
       config = function()
-        vim.fn["vimfiler#custom#profile"]("default", "context", { safe = 0, auto_expand = 1, parent = 0 })
-        vim.g.vimfiler_as_default_explorer = true
-        vim.g.vimfiler_tree_leaf_icon = " "
-        vim.g.vimfiler_tree_opened_icon = "▾"
-        vim.g.vimfiler_tree_closed_icon = "▸"
-        vim.g.vimfiler_file_icon = "-"
-        vim.g.vimfiler_marked_file_icon = "*"
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = "vimfiler",
-          callback = function()
-            local opts = { noremap = true, silent = true, buffer = true }
-            vim.keymap.set("n", "s", "<Cmd>lua vimfiler#do_switch_action('vsplit')<CR>", opts)
-            vim.keymap.set("n", "v", "<Cmd>lua vimfiler#do_switch_action('split')<CR>", opts)
-            vim.keymap.set("n", "t", "<Cmd>lua vimfiler#do_action('tabopen')<CR>", opts)
-            vim.keymap.del("n", "<C-l>", { buffer = true })
-          end,
-        })
-        vim.keymap.set("n", "fe", ":VimFilerBufferDir -quit<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+        require("nvim-tree").setup()
       end,
     },
     {
@@ -297,9 +280,6 @@ vim.keymap.set("v", "gl", "$<Left>", { silent = true })
 
 -- QuickRun
 vim.keymap.set("n", "g<Space>", ":<C-u>QuickRun<CR>", { silent = true })
-
--- Vimfiler
-vim.keymap.set("n", "gj", ":<C-u>VimFilerBufferDir -quit<CR>", { silent = true })
 
 -- Git commands
 vim.keymap.set("n", "gd", ":<C-u>VCSDiff<CR>", { silent = true })
