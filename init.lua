@@ -84,6 +84,11 @@ require("lazy").setup({
       end,
     },
     {
+      'nvim-telescope/telescope.nvim',
+      branch = '0.1.x',
+      dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+    {
       "Shougo/unite.vim",
       cmd = "Unite",
       config = function()
@@ -100,16 +105,54 @@ require("lazy").setup({
       end,
     },
     {
-      "thinca/vim-quickrun",
-      event = { "BufReadPost", "BufNewFile" },
+      "is0n/jaq-nvim",
+      lazy = false,
+      dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
-        vim.g.quickrun_config = {
-          _ = { runner = "vimproc", ["runner/vimproc/updatetime"] = 60 },
-          ruby = { command = "ruby", exec = { "%c %s" } },
-          python = { command = "python3", exec = { "%c %s" } },
-          typescript = { command = "ts-node", exec = { "%c %s" } },
-          rust = { command = "cargo", exec = { "%c run --quiet %s" } },
-        }
+        require("jaq-nvim").setup({
+          cmds = {
+            internal = {
+              lua = "luafile %",
+              vim = "source %",
+            },
+            external = {
+              python = "python3 %",
+              go = "go run %",
+              sh = "sh %",
+              ruby = "ruby %",
+              javascript = "node %",
+              rust = "cargo run --quiet %",
+            },
+          },
+          behavior = {
+            default = "float",
+            startinsert = true,
+            wincmd = false,
+            autosave = false,
+          },
+          ui = {
+            float = {
+              border = "none",
+              winhl = "Normal",
+              borderhl = "FloatBorder",
+              winblend = 0,
+              height = 0.8,
+              width = 0.8,
+              x = 0.5,
+              y = 0.5,
+            },
+            terminal = {
+              position = "bot",
+              size = 10,
+              line_no = false,
+            },
+            quickfix = {
+              position = "bot",
+              size = 10,
+            },
+          },
+        })
+        vim.keymap.set("n", "g<space>", ":<C-u>Jaq<CR>", { silent = true })
       end,
     },
     "thinca/vim-visualstar",
@@ -133,18 +176,6 @@ require("lazy").setup({
     {
       "cespare/vim-toml",
       ft = "toml",
-    },
-
-    {
-      "powerman/vim-plugin-AnsiEsc",
-      ft = "quickrun",
-      dependencies = { "thinca/vim-quickrun" },
-      config = function()
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = "quickrun",
-          command = "AnsiEsc",
-        })
-      end,
     },
 
     {
@@ -277,9 +308,6 @@ vim.keymap.set("n", "gh", "^", { silent = true })
 vim.keymap.set("v", "gh", "^", { silent = true })
 vim.keymap.set("n", "gl", "$", { silent = true })
 vim.keymap.set("v", "gl", "$<Left>", { silent = true })
-
--- QuickRun
-vim.keymap.set("n", "g<Space>", ":<C-u>QuickRun<CR>", { silent = true })
 
 -- Git commands
 vim.keymap.set("n", "gd", ":<C-u>VCSDiff<CR>", { silent = true })
