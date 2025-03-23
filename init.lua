@@ -142,7 +142,25 @@ require("lazy").setup({
             { name = "path" },
           }),
         })
-        require("lspconfig").lua_ls.setup({ capabilities = require("cmp_nvim_lsp").default_capabilities() })
+        require("lspconfig").lua_ls.setup({
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+              runtime = {
+                version = "LuaJIT",
+                path = vim.split(package.path, ";"),
+              },
+              workspace = {
+                library = {
+                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                  [vim.fn.stdpath("config") .. "/lua"] = true,
+                },
+              },
+            },
+          },
+        })
       end,
     },
     {
