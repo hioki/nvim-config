@@ -185,7 +185,13 @@ require("lazy").setup({
       end,
     },
     "thinca/vim-visualstar",
-    "jiangmiao/auto-pairs",
+    {
+      "windwp/nvim-autopairs",
+      event = "InsertEnter",
+      config = function()
+        require("nvim-autopairs").setup({})
+      end,
+    },
     {
       "tomtom/tcomment_vim",
       config = function()
