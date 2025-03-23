@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  defaults = { lazy = true },
   spec = {
     {
       "jose-elias-alvarez/null-ls.nvim",
@@ -40,7 +39,6 @@ require("lazy").setup({
     },
     {
       "cocopon/iceberg.vim",
-      lazy = false,
       config = function()
         vim.api.nvim_create_autocmd("VimEnter", {
           callback = function()
@@ -52,7 +50,6 @@ require("lazy").setup({
     },
     {
       "nvim-lualine/lualine.nvim",
-      lazy = false,
       config = function()
         require("lualine").setup({
           options = {
@@ -87,7 +84,6 @@ require("lazy").setup({
     {
       "kyazdani42/nvim-tree.lua",
       dependencies = "kyazdani42/nvim-web-devicons",
-      lazy = false,
       config = function()
         vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
         require("nvim-tree").setup()
@@ -95,7 +91,6 @@ require("lazy").setup({
     },
     {
       "neovim/nvim-lspconfig",
-      lazy = false,
       config = function()
         local caps = require("cmp_nvim_lsp").default_capabilities()
         require("lspconfig").rust_analyzer.setup({ capabilities = caps })
@@ -105,7 +100,6 @@ require("lazy").setup({
     },
     {
       "williamboman/mason.nvim",
-      lazy = false,
       dependencies = { "williamboman/mason-lspconfig.nvim" },
       config = function()
         require("mason").setup()
@@ -116,7 +110,6 @@ require("lazy").setup({
     },
     {
       "hrsh7th/nvim-cmp",
-      lazy = false,
       dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
@@ -175,7 +168,6 @@ require("lazy").setup({
     },
     {
       "nvim-telescope/telescope.nvim",
-      lazy = false,
       branch = "0.1.x",
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
@@ -185,7 +177,6 @@ require("lazy").setup({
     },
     {
       "is0n/jaq-nvim",
-      lazy = false,
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
         require("jaq-nvim").setup({
