@@ -28,7 +28,9 @@ require("lazy").setup({
               vim.api.nvim_create_autocmd("BufWritePre", {
                 group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
                 buffer = bufnr,
-                callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end,
+                callback = function()
+                  vim.lsp.buf.format({ bufnr = bufnr })
+                end,
               })
             end
           end,
@@ -49,7 +51,7 @@ require("lazy").setup({
     },
     {
       "nvim-lualine/lualine.nvim",
-      lazy = false
+      lazy = false,
     },
     {
       "Shougo/vimfiler.vim",
@@ -57,13 +59,13 @@ require("lazy").setup({
       lazy = false,
       dependencies = "Shougo/unite.vim",
       config = function()
-        vim.fn['vimfiler#custom#profile']("default", "context", { safe = 0, auto_expand = 1, parent = 0 })
+        vim.fn["vimfiler#custom#profile"]("default", "context", { safe = 0, auto_expand = 1, parent = 0 })
         vim.g.vimfiler_as_default_explorer = true
-        vim.g.vimfiler_tree_leaf_icon      = " "
-        vim.g.vimfiler_tree_opened_icon    = "▾"
-        vim.g.vimfiler_tree_closed_icon    = "▸"
-        vim.g.vimfiler_file_icon           = "-"
-        vim.g.vimfiler_marked_file_icon    = "*"
+        vim.g.vimfiler_tree_leaf_icon = " "
+        vim.g.vimfiler_tree_opened_icon = "▾"
+        vim.g.vimfiler_tree_closed_icon = "▸"
+        vim.g.vimfiler_file_icon = "-"
+        vim.g.vimfiler_marked_file_icon = "*"
         vim.api.nvim_create_autocmd("FileType", {
           pattern = "vimfiler",
           callback = function()
@@ -80,7 +82,7 @@ require("lazy").setup({
     {
       "Shougo/vimproc.vim",
       event = { "BufReadPost", "BufNewFile" },
-      build = "make -f make_mac.mak"
+      build = "make -f make_mac.mak",
     },
     {
       "Shougo/deoplete.nvim",
@@ -103,7 +105,7 @@ require("lazy").setup({
             vim.keymap.set("i", "<C-g>", "<ESC>:q<CR>", opts)
           end,
         })
-      end
+      end,
     },
     {
       "thinca/vim-quickrun",
@@ -124,7 +126,7 @@ require("lazy").setup({
       "tomtom/tcomment_vim",
       config = function()
         vim.g.tcomment_opleader1 = "gc"
-      end
+      end,
     },
 
     "vim-scripts/camelcasemotion",
@@ -138,7 +140,7 @@ require("lazy").setup({
 
     {
       "cespare/vim-toml",
-      ft = "toml"
+      ft = "toml",
     },
 
     {
@@ -152,32 +154,32 @@ require("lazy").setup({
       ft = "markdown",
       build = "cd app && yarn install",
       config = function()
-        vim.g.mkdp_auto_start         = 0
-        vim.g.mkdp_auto_close         = 0
-        vim.g.mkdp_refresh_slow       = 0
+        vim.g.mkdp_auto_start = 0
+        vim.g.mkdp_auto_close = 0
+        vim.g.mkdp_refresh_slow = 0
         vim.g.mkdp_command_for_global = 0
-        vim.g.mkdp_open_to_the_world  = 0
-        vim.g.mkdp_open_ip            = ""
-        vim.g.mkdp_browser            = ""
-        vim.g.mkdp_echo_preview_url   = 0
-        vim.g.mkdp_browserfunc        = ""
-        vim.g.mkdp_preview_options    = {
-          mkit                = {},
-          katex               = {},
-          uml                 = {},
-          maid                = {},
+        vim.g.mkdp_open_to_the_world = 0
+        vim.g.mkdp_open_ip = ""
+        vim.g.mkdp_browser = ""
+        vim.g.mkdp_echo_preview_url = 0
+        vim.g.mkdp_browserfunc = ""
+        vim.g.mkdp_preview_options = {
+          mkit = {},
+          katex = {},
+          uml = {},
+          maid = {},
           disable_sync_scroll = 0,
-          sync_scroll_type    = "middle",
-          hide_yaml_meta      = 1,
-          sequence_diagrams   = {},
+          sync_scroll_type = "middle",
+          hide_yaml_meta = 1,
+          sequence_diagrams = {},
         }
-        vim.g.mkdp_markdown_css       = ""
-        vim.g.mkdp_highlight_css      = ""
-        vim.g.mkdp_port               = ""
-        vim.g.mkdp_page_title         = "「${name}」"
+        vim.g.mkdp_markdown_css = ""
+        vim.g.mkdp_highlight_css = ""
+        vim.g.mkdp_port = ""
+        vim.g.mkdp_page_title = "「${name}」"
       end,
     },
-  }
+  },
 })
 
 for _, opt in ipairs({
@@ -350,5 +352,5 @@ require("lualine").setup({
   options = {
     icons_enabled = false,
     theme = "iceberg_dark",
-  }
+  },
 })
