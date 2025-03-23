@@ -16,6 +16,7 @@ require("lazy").setup({
   spec = {
     {
       "jose-elias-alvarez/null-ls.nvim",
+      ft = "lua",
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
         local null_ls = require("null-ls")
