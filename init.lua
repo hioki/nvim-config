@@ -21,7 +21,7 @@ require("lazy").setup({
         vim.api.nvim_create_autocmd("VimEnter", {
           callback = function()
             vim.cmd("colorscheme iceberg")
-            vim.api.nvim_set_hl(0, "Visual", { ctermbg = 16 })
+            vim.api.nvim_set_hl(0, "Visual", { bg = "#3a4b5c", reverse = true })
           end,
         })
       end,
