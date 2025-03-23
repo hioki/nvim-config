@@ -59,6 +59,28 @@ require("lazy").setup({
             icons_enabled = false,
             theme = "iceberg_dark",
           },
+          sections = {
+            lualine_a = { "mode" },
+            lualine_b = {
+              {
+                function()
+                  if vim.opt.paste:get() then
+                    return "PASTE"
+                  else
+                    return ""
+                  end
+                end,
+                color = { fg = "#ff00ff", gui = "bold" },
+              },
+              "branch",
+              "diff",
+              "diagnostics",
+            },
+            lualine_c = { "filename" },
+            lualine_x = { "fileformat", "filetype" },
+            lualine_y = { "progress" },
+            lualine_z = { "location" },
+          },
         })
       end,
     },
