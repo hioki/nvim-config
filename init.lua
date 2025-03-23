@@ -138,8 +138,7 @@ require("lazy").setup({
         require("lspconfig").lua_ls.setup({
           root_dir = function(fname)
             local util = require("lspconfig.util")
-            return util.root_pattern(".git", ".luarc.json")(fname)
-                or util.path.dirname(fname)
+            return util.root_pattern(".git", ".luarc.json")(fname) or util.path.dirname(fname)
           end,
           settings = {
             Lua = {
