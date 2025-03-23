@@ -166,6 +166,11 @@ require("lazy").setup({
             },
           },
         })
+        require("lspconfig").bashls.setup({
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+          filetypes = { "sh", "bash" },
+          cmd = { "bash-language-server", "start" },
+        })
       end,
     },
     {
