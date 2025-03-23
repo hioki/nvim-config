@@ -72,26 +72,55 @@ require("lazy").setup({
       end,
     },
     {
-      "Shougo/vimproc.vim",
-      event = { "BufReadPost", "BufNewFile" },
-      build = "make -f make_mac.mak",
-    },
-    {
-      "Shougo/deoplete.nvim",
+      "neovim/nvim-lspconfig",
+      lazy = false,
+      dependencies = { "hrsh7th/cmp-nvim-lsp" },
       config = function()
-        vim.g["deoplete#max_menu_width"] = 180
-        vim.g.go_bin_path = os.getenv("HOME") .. "/go/bin"
+        require("lspconfig").pyright.setup({
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        })
       end,
     },
     {
-      'nvim-telescope/telescope.nvim',
+      "hrsh7th/nvim-cmp",
       lazy = false,
-      branch = '0.1.x',
-      dependencies = { 'nvim-lua/plenary.nvim' },
+      dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "L3MON4D3/LuaSnip",
+      },
+      config = function()
+        local cmp = require("cmp")
+        cmp.setup({
+          snippet = {
+            expand = function(args)
+              require("luasnip").lsp_expand(args.body)
+            end,
+          },
+          mapping = cmp.mapping.preset.insert({
+            ["<Tab>"] = cmp.mapping.select_next_item(),
+            ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+            ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          }),
+          sources = cmp.config.sources({
+            { name = "nvim_lsp" },
+            { name = "buffer" },
+            { name = "path" },
+          }),
+        })
+        require("lspconfig").lua_ls.setup({ capabilities = require("cmp_nvim_lsp").default_capabilities() })
+      end,
+    },
+    {
+      "nvim-telescope/telescope.nvim",
+      lazy = false,
+      branch = "0.1.x",
+      dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
         local t = require("telescope.builtin")
         vim.keymap.set("n", "<Leader>k", t.live_grep, { desc = "Live grep" })
-      end
+      end,
     },
     {
       "is0n/jaq-nvim",
