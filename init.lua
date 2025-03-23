@@ -260,12 +260,22 @@ require("lazy").setup({
     "vim-scripts/vcscommand.vim",
     {
       "zbirenbaum/copilot.lua",
-      cmd = "Copilot",
       event = "InsertEnter",
       config = function()
-        require("copilot").setup({})
+        require("copilot").setup({
+          suggestion = {
+            auto_trigger = true,
+            keymap = {
+              accept = "<Tab>",
+            },
+          },
+          filetypes = {
+            ["*"] = true,
+          },
+        })
       end,
     },
+
     {
       "cespare/vim-toml",
       ft = "toml",
