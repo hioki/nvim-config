@@ -53,6 +53,14 @@ require("lazy").setup({
     {
       "nvim-lualine/lualine.nvim",
       lazy = false,
+      config = function()
+        require("lualine").setup({
+          options = {
+            icons_enabled = false,
+            theme = "iceberg_dark",
+          },
+        })
+      end,
     },
     {
       "Shougo/vimfiler.vim",
@@ -148,6 +156,12 @@ require("lazy").setup({
       "powerman/vim-plugin-AnsiEsc",
       ft = "quickrun",
       dependencies = { "thinca/vim-quickrun" },
+      config = function()
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = "quickrun",
+          command = "AnsiEsc",
+        })
+      end,
     },
 
     {
@@ -338,20 +352,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "quickrun",
-  command = "AnsiEsc",
-})
-vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   callback = function()
     vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-w><CR><C-w>T", { noremap = true, silent = true })
   end,
-})
-
--- Lualine setup
-require("lualine").setup({
-  options = {
-    icons_enabled = false,
-    theme = "iceberg_dark",
-  },
 })
