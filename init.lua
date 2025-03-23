@@ -193,21 +193,29 @@ require("lazy").setup({
       end,
     },
     {
-      "tomtom/tcomment_vim",
+      "numToStr/Comment.nvim",
       config = function()
-        vim.g.tcomment_opleader1 = "gc"
+        require("Comment").setup()
       end,
     },
-
-    "vim-scripts/camelcasemotion",
-    "tpope/vim-surround",
+    {
+      "kylechui/nvim-surround",
+      event = "VeryLazy",
+      config = function()
+        require("nvim-surround").setup({})
+      end,
+    },
     "tpope/vim-fugitive",
     "tpope/vim-rhubarb",
     "vim-scripts/vcscommand.vim",
-    "tpope/vim-dispatch",
-    "simeji/winresizer",
-    "github/copilot.vim",
-
+    {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup({})
+      end,
+    },
     {
       "cespare/vim-toml",
       ft = "toml",
