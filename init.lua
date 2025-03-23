@@ -15,6 +15,27 @@ require("lazy").setup({
   defaults = { lazy = true },
   spec = {
     {
+      "jose-elias-alvarez/null-ls.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      config = function()
+        local null_ls = require("null-ls")
+        null_ls.setup({
+          sources = {
+            null_ls.builtins.formatting.stylua,
+          },
+          on_attach = function(client, bufnr)
+            if client.supports_method("textDocument/formatting") then
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+                buffer = bufnr,
+                callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end,
+              })
+            end
+          end,
+        })
+      end,
+    },
+    {
       "cocopon/iceberg.vim",
       lazy = false,
       config = function()
