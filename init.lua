@@ -314,6 +314,11 @@ require("lazy").setup({
         vim.g.mkdp_page_title = "「${name}」"
       end,
     },
+    {
+      "chentoast/marks.nvim",
+      event = "VeryLazy",
+      opts = {},
+    },
   },
 })
 
