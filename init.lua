@@ -86,6 +86,7 @@ require("lazy").setup({
       dependencies = "kyazdani42/nvim-web-devicons",
       config = function()
         vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "gj", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
         require("nvim-tree").setup()
       end,
     },
@@ -172,10 +173,12 @@ require("lazy").setup({
       config = function()
         local t = require("telescope.builtin")
         local actions = require("telescope.actions")
-        vim.keymap.set("n", "<leader>k", t.live_grep, { desc = "Live grep" })
+        vim.keymap.set("n", "<leader>k", t.live_grep)
+        vim.keymap.set("n", "gk", t.live_grep)
         vim.keymap.set("n", "<leader>f", function()
           t.find_files({ hidden = true })
-        end, { desc = "Find files" })
+        end)
+        vim.keymap.set("n", "<leader>o", t.oldfiles)
         vim.api.nvim_create_autocmd("FileType", {
           pattern = "TelescopePrompt",
           callback = function()
