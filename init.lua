@@ -402,6 +402,10 @@ vim.keymap.set("i", "<C-b>", "<C-o>O", { silent = true })
 vim.keymap.set("i", "<C-f>", "<C-o>o", { silent = true })
 vim.keymap.set("i", "<C-d>", "<Del>", { silent = true })
 
+-- Jump to previous/next location
+vim.keymap.set("n", "<leader>h", "<C-o>", { silent = true })
+vim.keymap.set("n", "<leader>l", "<C-i>", { silent = true })
+
 -- Load matchit
 vim.cmd("runtime macros/matchit.vim")
 vim.keymap.set("n", "<space>", "%", { silent = true })
