@@ -461,6 +461,25 @@ vim.keymap.set("n", "sdj", "<C-w>j:bd!<CR>", { silent = true })
 vim.keymap.set("n", "sdk", "<C-w>k:bd!<CR>", { silent = true })
 vim.keymap.set("n", "sdl", "<C-w>l:bd!<CR>", { silent = true })
 
+-- Resize mode
+local function enter_resize_mode()
+  local opts = { noremap = true, silent = true, nowait = true }
+  vim.api.nvim_set_keymap("n", "h", "<C-w><", opts)
+  vim.api.nvim_set_keymap("n", "l", "<C-w>>", opts)
+  vim.api.nvim_set_keymap("n", "<CR>", ":lua _G.exit_resize_mode()<CR>", opts)
+  print("Entered resize mode: use h/l to resize left/right, press <CR> to exit")
+end
+function _G.exit_resize_mode()
+  vim.api.nvim_del_keymap("n", "h")
+  vim.api.nvim_del_keymap("n", "l")
+  vim.api.nvim_del_keymap("n", "<CR>")
+  print("Exited resize mode")
+end
+
+vim.keymap.set("n", "<C-e>", function()
+  enter_resize_mode()
+end, { noremap = true, silent = true })
+
 -- FileType autocommands
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
