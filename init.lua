@@ -404,7 +404,7 @@ vim.keymap.set("v", "<space>", "%", { silent = true })
 vim.keymap.set("v", "m", "%", { silent = true })
 
 -- Edit configuration files
-vim.keymap.set("n", "g,", ":<C-u>edit $HOME/.config/nvim/<CR>", { silent = true })
+vim.keymap.set("n", "g,", ":<C-u>edit $HOME/.config/nvim/init.lua<CR>", { silent = true })
 
 -- Move to the beginning/end of the line
 vim.keymap.set("n", "gh", "^", { silent = true })
