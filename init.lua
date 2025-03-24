@@ -379,7 +379,7 @@ vim.keymap.set("n", "<ESC><ESC>", ":nohlsearch<CR>", { silent = true })
 vim.keymap.set("n", "Q", ":set paste!<CR>", { silent = true })
 vim.keymap.set("n", "W", ":set wrap!<CR>", { silent = true })
 vim.keymap.set("n", "S", ":set number!<CR>", { silent = true })
-vim.keymap.set("n", "z", ":set filetype=", { silent = true })
+vim.keymap.set("n", "z", ":set filetype=")
 
 -- Window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
