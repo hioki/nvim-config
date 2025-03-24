@@ -399,8 +399,8 @@ vim.keymap.set("i", "<C-d>", "<Del>", { silent = true })
 
 -- Load matchit
 vim.cmd("runtime macros/matchit.vim")
-vim.keymap.set("n", "<Tab>", "%", { silent = true })
-vim.keymap.set("v", "<Tab>", "%", { silent = true })
+vim.keymap.set("n", "<space>", "%", { silent = true })
+vim.keymap.set("v", "<space>", "%", { silent = true })
 vim.keymap.set("v", "m", "%", { silent = true })
 
 -- Edit configuration files
