@@ -480,6 +480,24 @@ vim.keymap.set("n", "<C-e>", function()
   enter_resize_mode()
 end, { noremap = true, silent = true })
 
+-- Open GitHub URL
+vim.keymap.set("n", "gt", function()
+  local filepath = vim.fn.expand("%:p")
+  local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  if filepath == "" or git_root == "" then
+    print("Not a Git repository")
+    return
+  end
+  local relpath = vim.fn.fnamemodify(filepath, ":~:.")
+  local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
+  local repo_url = vim.fn
+    .systemlist("git config --get remote.origin.url")[1]
+    :gsub("ssh://git@github.com/", "https://github.com/")
+    :gsub("%.git$", "")
+  local url = string.format("%s/blob/%s/%s", repo_url, branch, relpath)
+  vim.fn.jobstart({ "open", url }, { detach = true })
+end)
+
 -- FileType autocommands
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
