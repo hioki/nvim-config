@@ -482,7 +482,7 @@ end, { noremap = true, silent = true })
 
 -- Open GitHub URL
 vim.keymap.set("n", "gt", function()
-  local filepath = vim.fn.expand("%:p")
+  local filepath = vim.fn.systemlist("readlink -f " .. vim.fn.expand("%:p"))[1]
   local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
   if filepath == "" or git_root == "" then
     print("Not a Git repository")
