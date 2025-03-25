@@ -481,7 +481,7 @@ vim.keymap.set("n", "<C-e>", function()
 end, { noremap = true, silent = true })
 
 -- Open GitHub URL
-vim.keymap.set("n", "gt", function()
+vim.keymap.set({ "n", "v" }, "gt", function()
   local filepath = vim.fn.systemlist("readlink -f " .. vim.fn.expand("%:p"))[1]
   local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
   if filepath == "" or git_root == "" then
@@ -494,7 +494,21 @@ vim.keymap.set("n", "gt", function()
     .systemlist("git config --get remote.origin.url")[1]
     :gsub("ssh://git@github.com/", "https://github.com/")
     :gsub("%.git$", "")
-  local url = string.format("%s/blob/%s/%s", repo_url, branch, relpath)
+  local line_spec = ""
+  local mode = vim.fn.mode()
+  if mode == "v" or mode == "V" or mode == "\22" then -- visual, visual-line, visual-block
+    local start_line = vim.fn.line("v")
+    local end_line = vim.fn.line(".")
+    if start_line > end_line then
+      start_line, end_line = end_line, start_line
+    end
+    line_spec = string.format("#L%d-L%d", start_line, end_line)
+  else
+    local line_number = vim.fn.line(".")
+    line_spec = string.format("#L%d", line_number)
+  end
+  local url = string.format("%s/blob/%s/%s%s", repo_url, branch, relpath, line_spec)
+  print("Opening " .. url)
   vim.fn.jobstart({ "open", url }, { detach = true })
 end)
 
