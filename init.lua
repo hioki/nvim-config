@@ -94,9 +94,10 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
       config = function()
         local caps = require("cmp_nvim_lsp").default_capabilities()
-        require("lspconfig").rust_analyzer.setup({ capabilities = caps })
-        require("lspconfig").pyright.setup({ capabilities = caps })
-        require("lspconfig").lua_ls.setup({ capabilities = caps })
+        local lspconfig = require("lspconfig")
+        lspconfig.rust_analyzer.setup({ capabilities = caps })
+        lspconfig.pyright.setup({ capabilities = caps })
+        lspconfig.lua_ls.setup({ capabilities = caps })
       end,
     },
     {
@@ -119,6 +120,7 @@ require("lazy").setup({
       },
       config = function()
         local cmp = require("cmp")
+        local lspconfig = require("lspconfig")
         cmp.setup({
           snippet = {
             expand = function(args)
@@ -136,7 +138,7 @@ require("lazy").setup({
             { name = "path" },
           }),
         })
-        require("lspconfig").lua_ls.setup({
+        lspconfig.lua_ls.setup({
           root_dir = function(fname)
             local util = require("lspconfig.util")
             return util.root_pattern(".git", ".luarc.json")(fname) or util.path.dirname(fname)
@@ -159,7 +161,7 @@ require("lazy").setup({
             },
           },
         })
-        require("lspconfig").bashls.setup({
+        lspconfig.bashls.setup({
           capabilities = require("cmp_nvim_lsp").default_capabilities(),
           filetypes = { "sh", "bash" },
           cmd = { "bash-language-server", "start" },
