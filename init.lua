@@ -498,9 +498,9 @@ vim.keymap.set({ "n", "v" }, "gt", function()
   local relpath = vim.fn.fnamemodify(filepath, ":~:.")
   local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
   local repo_url = vim.fn
-    .systemlist("git config --get remote.origin.url")[1]
-    :gsub("ssh://git@github.com/", "https://github.com/")
-    :gsub("%.git$", "")
+      .systemlist("git config --get remote.origin.url")[1]
+      :gsub("ssh://git@github.com/", "https://github.com/")
+      :gsub("%.git$", "")
   local line_spec = ""
   local mode = vim.fn.mode()
   if mode == "v" or mode == "V" or mode == "\22" then -- visual, visual-line, visual-block
