@@ -329,6 +329,26 @@ require("lazy").setup({
       event = "VeryLazy",
       opts = {},
     },
+    {
+      "NvChad/nvim-colorizer.lua",
+      event = { "BufReadPost", "BufNewFile" },
+      config = function()
+        require("colorizer").setup({
+          filetypes = { "*" },
+          user_default_options = {
+            RGB = true,          -- Highlight #RGB format
+            RRGGBB = true,       -- Highlight #RRGGBB format
+            RRGGBBAA = true,     -- Highlight #RRGGBBAA format
+            rgb_fn = true,       -- Highlight CSS rgb() function
+            hsl_fn = true,       -- Highlight CSS hsl() function
+            css = true,          -- Highlight CSS variables
+            css_fn = true,       -- Highlight CSS functions
+            mode = "background", -- Display as background color
+            tailwind = true,     -- Support for Tailwind color names
+          },
+        })
+      end,
+    },
   },
 })
 
