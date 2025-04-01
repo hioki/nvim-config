@@ -467,8 +467,8 @@ vim.keymap.set("n", "<CR>V", ":vsplit<CR>", { silent = true })
 -- Close buffer
 vim.keymap.set("n", "<CR>h", ":hide<CR>", { silent = true })
 vim.keymap.set("n", "<CR>d", ":bd!<CR>", { silent = true })
-vim.keymap.set("n", "<CR>q", ":q!<CR>", { silent = true })
-vim.keymap.set("n", "<CR>Q", ":qall!<CR>", { silent = true })
+vim.keymap.set("n", "<CR>q", ":qall!<CR>", { silent = true })
+vim.keymap.set("n", "<CR>Q", ":q!<CR>", { silent = true })
 
 -- Move between windows
 vim.keymap.set("n", "sh", "<C-w>h", { silent = true })
