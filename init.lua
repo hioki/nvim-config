@@ -85,8 +85,8 @@ require("lazy").setup({
       "kyazdani42/nvim-tree.lua",
       dependencies = "kyazdani42/nvim-web-devicons",
       config = function()
-        vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "gj", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "gj", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
         require("nvim-tree").setup()
       end,
     },
@@ -336,15 +336,15 @@ require("lazy").setup({
         require("colorizer").setup({
           filetypes = { "*" },
           user_default_options = {
-            RGB = true,          -- Highlight #RGB format
-            RRGGBB = true,       -- Highlight #RRGGBB format
-            RRGGBBAA = true,     -- Highlight #RRGGBBAA format
-            rgb_fn = true,       -- Highlight CSS rgb() function
-            hsl_fn = true,       -- Highlight CSS hsl() function
-            css = true,          -- Highlight CSS variables
-            css_fn = true,       -- Highlight CSS functions
+            RGB = true, -- Highlight #RGB format
+            RRGGBB = true, -- Highlight #RRGGBB format
+            RRGGBBAA = true, -- Highlight #RRGGBBAA format
+            rgb_fn = true, -- Highlight CSS rgb() function
+            hsl_fn = true, -- Highlight CSS hsl() function
+            css = true, -- Highlight CSS variables
+            css_fn = true, -- Highlight CSS functions
             mode = "background", -- Display as background color
-            tailwind = true,     -- Support for Tailwind color names
+            tailwind = true, -- Support for Tailwind color names
           },
         })
       end,
@@ -518,9 +518,9 @@ vim.keymap.set({ "n", "v" }, "gt", function()
   local relpath = vim.fn.fnamemodify(filepath, ":~:.")
   local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
   local repo_url = vim.fn
-      .systemlist("git config --get remote.origin.url")[1]
-      :gsub("ssh://git@github.com/", "https://github.com/")
-      :gsub("%.git$", "")
+    .systemlist("git config --get remote.origin.url")[1]
+    :gsub("ssh://git@github.com/", "https://github.com/")
+    :gsub("%.git$", "")
   local line_spec = ""
   local mode = vim.fn.mode()
   if mode == "v" or mode == "V" or mode == "\22" then -- visual, visual-line, visual-block
