@@ -4,5 +4,5 @@
 
 ```shell
 $ cd ~/.config/
-$ ln -s $(ghq root)/github.com/$(whoami)/nvim-config nvim
+$ ln -s $HOME/.rhq/github.com/$(whoami)/nvim-config nvim
 ```
