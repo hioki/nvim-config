@@ -10,6 +10,8 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 require("lazy").setup({
   spec = {
@@ -424,6 +426,25 @@ vim.keymap.set("n", "<C-p>", ":bprevious<CR>", { silent = true })
 -- Clipboard yank in visual
 vim.keymap.set("v", "F", ":'<,'>w !pbcopy<CR><CR>", { silent = true })
 vim.keymap.set("v", "v", "$h", { silent = true })
+
+local function paste_fenced_code_block()
+  local clipboard = vim.fn.getreg("+")
+  if clipboard == "" then
+    return
+  end
+
+  clipboard = clipboard:gsub("\r\n", "\n"):gsub("\r", "\n"):gsub("\n+$", "")
+  local lines = vim.split(clipboard, "\n", { plain = true })
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local fenced_lines = { "```" }
+
+  vim.list_extend(fenced_lines, lines)
+  table.insert(fenced_lines, "```")
+  vim.api.nvim_buf_set_lines(0, row, row, true, fenced_lines)
+  vim.api.nvim_win_set_cursor(0, { row + #fenced_lines, 0 })
+end
+
+vim.keymap.set("n", "<leader>x", paste_fenced_code_block, { silent = true })
 
 -- Insert mode cursor movement
 vim.keymap.set("i", "<C-a>", "<Home>", { silent = true })
