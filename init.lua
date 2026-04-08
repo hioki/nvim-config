@@ -16,7 +16,7 @@ vim.g.maplocalleader = " "
 require("lazy").setup({
   spec = {
     {
-      "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim",
       ft = "lua",
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
@@ -26,7 +26,7 @@ require("lazy").setup({
             null_ls.builtins.formatting.stylua,
           },
           on_attach = function(client, bufnr)
-            if client.supports_method("textDocument/formatting") then
+            if client:supports_method("textDocument/formatting") then
               vim.api.nvim_create_autocmd("BufWritePre", {
                 group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
                 buffer = bufnr,
@@ -95,11 +95,27 @@ require("lazy").setup({
     {
       "neovim/nvim-lspconfig",
       config = function()
-        local caps = require("cmp_nvim_lsp").default_capabilities()
-        local lspconfig = require("lspconfig")
-        lspconfig.rust_analyzer.setup({ capabilities = caps })
-        lspconfig.pyright.setup({ capabilities = caps })
-        lspconfig.lua_ls.setup({ capabilities = caps })
+        vim.lsp.config("*", {
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        })
+        vim.lsp.config("lua_ls", {
+          settings = {
+            Lua = {
+              diagnostics = { globals = { "vim" } },
+              runtime = {
+                version = "LuaJIT",
+                path = vim.split(package.path, ";"),
+              },
+              workspace = {
+                library = {
+                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                  [vim.fn.stdpath("config") .. "/lua"] = true,
+                },
+              },
+            },
+          },
+        })
+        vim.lsp.enable({ "rust_analyzer", "pyright", "lua_ls", "bashls" })
       end,
     },
     {
@@ -127,7 +143,6 @@ require("lazy").setup({
       },
       config = function()
         local cmp = require("cmp")
-        local lspconfig = require("lspconfig")
         cmp.setup({
           snippet = {
             expand = function(args)
@@ -144,34 +159,6 @@ require("lazy").setup({
             { name = "buffer" },
             { name = "path" },
           }),
-        })
-        lspconfig.lua_ls.setup({
-          root_dir = function(fname)
-            local util = require("lspconfig.util")
-            return util.root_pattern(".git", ".luarc.json")(fname) or util.path.dirname(fname)
-          end,
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
-              },
-              runtime = {
-                version = "LuaJIT",
-                path = vim.split(package.path, ";"),
-              },
-              workspace = {
-                library = {
-                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                  [vim.fn.stdpath("config") .. "/lua"] = true,
-                },
-              },
-            },
-          },
-        })
-        lspconfig.bashls.setup({
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-          filetypes = { "sh", "bash" },
-          cmd = { "bash-language-server", "start" },
         })
       end,
     },
