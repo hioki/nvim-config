@@ -1,374 +1,347 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require("lazy").setup({
-  spec = {
-    {
-      "nvimtools/none-ls.nvim",
-      ft = "lua",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = function()
-        local null_ls = require("null-ls")
-        null_ls.setup({
-          sources = {
-            null_ls.builtins.formatting.stylua,
-          },
-          on_attach = function(client, bufnr)
-            if client:supports_method("textDocument/formatting") then
-              vim.api.nvim_create_autocmd("BufWritePre", {
-                group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
-                buffer = bufnr,
-                callback = function()
-                  vim.lsp.buf.format({ bufnr = bufnr })
-                end,
-              })
-            end
-          end,
-        })
-      end,
-    },
-    {
-      "cocopon/iceberg.vim",
-      config = function()
-        vim.api.nvim_create_autocmd("VimEnter", {
-          callback = function()
-            vim.cmd("colorscheme iceberg")
-            vim.api.nvim_set_hl(0, "Visual", { bg = "#3a4b5c", reverse = true })
-          end,
-        })
-      end,
-    },
-    {
-      "nvim-lualine/lualine.nvim",
-      config = function()
-        require("lualine").setup({
-          options = {
-            icons_enabled = false,
-            theme = "iceberg_dark",
-          },
-          sections = {
-            lualine_a = { "mode" },
-            lualine_b = {
-              {
-                function()
-                  if vim.opt.paste:get() then
-                    return "PASTE"
-                  else
-                    return ""
-                  end
-                end,
-                color = { fg = "#ff00ff", gui = "bold" },
-              },
-              "branch",
-              "diff",
-              "diagnostics",
-            },
-            lualine_c = { "filename" },
-            lualine_x = { "fileformat", "filetype" },
-            lualine_y = { "progress" },
-            lualine_z = { "location" },
-          },
-        })
-      end,
-    },
-    {
-      "kyazdani42/nvim-tree.lua",
-      dependencies = "kyazdani42/nvim-web-devicons",
-      config = function()
-        vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "gj", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
-        require("nvim-tree").setup()
-      end,
-    },
-    {
-      "neovim/nvim-lspconfig",
-      config = function()
-        vim.lsp.config("*", {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        })
-        vim.lsp.config("lua_ls", {
-          settings = {
-            Lua = {
-              diagnostics = { globals = { "vim" } },
-              runtime = {
-                version = "LuaJIT",
-                path = vim.split(package.path, ";"),
-              },
-              workspace = {
-                library = {
-                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                  [vim.fn.stdpath("config") .. "/lua"] = true,
-                },
-              },
-            },
-          },
-        })
-        vim.lsp.enable({ "rust_analyzer", "pyright", "lua_ls", "bashls" })
-      end,
-    },
-    {
-      "williamboman/mason.nvim",
-      config = function()
-        require("mason").setup()
-      end,
-    },
-    {
-      "williamboman/mason-lspconfig.nvim",
-      dependencies = { "williamboman/mason.nvim" },
-      config = function()
-        require("mason-lspconfig").setup({
-          ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "bashls" },
-        })
-      end,
-    },
-    {
-      "hrsh7th/nvim-cmp",
-      dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "L3MON4D3/LuaSnip",
-      },
-      config = function()
-        local cmp = require("cmp")
-        cmp.setup({
-          snippet = {
-            expand = function(args)
-              require("luasnip").lsp_expand(args.body)
-            end,
-          },
-          mapping = cmp.mapping.preset.insert({
-            ["<Tab>"] = cmp.mapping.select_next_item(),
-            ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          }),
-          sources = cmp.config.sources({
-            { name = "nvim_lsp" },
-            { name = "buffer" },
-            { name = "path" },
-          }),
-        })
-      end,
-    },
-    {
-      "nvim-telescope/telescope.nvim",
-      branch = "0.1.x",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = function()
-        local t = require("telescope.builtin")
-        local actions = require("telescope.actions")
-        vim.keymap.set("n", "<leader>k", t.live_grep)
-        vim.keymap.set("n", "gk", t.live_grep)
-        vim.keymap.set("n", "<leader>f", function()
-          t.find_files({ hidden = true })
-        end)
-        vim.keymap.set("n", "<leader>o", t.oldfiles)
-        vim.api.nvim_create_autocmd("FileType", {
-          pattern = "TelescopePrompt",
-          callback = function()
-            vim.keymap.set("n", "q", function()
-              local prompt_bufnr = vim.api.nvim_get_current_buf()
-              actions.close(prompt_bufnr)
-            end, { buffer = true })
-          end,
-        })
-      end,
-    },
-    {
-      "is0n/jaq-nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("jaq-nvim").setup({
-          cmds = {
-            internal = {
-              lua = "luafile %",
-              vim = "source %",
-            },
-            external = {
-              python = "python3 %",
-              go = "go run %",
-              sh = "sh %",
-              ruby = "ruby %",
-              javascript = "node %",
-              rust = "cargo run --quiet %",
-            },
-          },
-          behavior = {
-            default = "float",
-            startinsert = true,
-            wincmd = false,
-            autosave = false,
-          },
-          ui = {
-            float = {
-              border = "none",
-              winhl = "Normal",
-              borderhl = "FloatBorder",
-              winblend = 0,
-              height = 0.8,
-              width = 0.8,
-              x = 0.5,
-              y = 0.5,
-            },
-            terminal = {
-              position = "bot",
-              size = 10,
-              line_no = false,
-            },
-            quickfix = {
-              position = "bot",
-              size = 10,
-            },
-          },
-        })
-        vim.keymap.set("n", "g<space>", ":<C-u>Jaq<CR>", { silent = true })
-      end,
-    },
-    "thinca/vim-visualstar",
-    {
-      "windwp/nvim-autopairs",
-      event = "InsertEnter",
-      config = function()
-        require("nvim-autopairs").setup({})
-      end,
-    },
-    {
-      "numToStr/Comment.nvim",
-      config = function()
-        require("Comment").setup()
-      end,
-    },
-    {
-      "kylechui/nvim-surround",
-      event = "VeryLazy",
-      config = function()
-        require("nvim-surround").setup({})
-      end,
-    },
-    "tpope/vim-fugitive",
-    "tpope/vim-rhubarb",
-    "vim-scripts/vcscommand.vim",
-    {
-      "zbirenbaum/copilot.lua",
-      event = "InsertEnter",
-      config = function()
-        require("copilot").setup({
-          suggestion = {
-            auto_trigger = true,
-            keymap = {
-              accept = "<C-l>",
-            },
-          },
-          filetypes = {
-            ["*"] = true,
-          },
-        })
-      end,
-    },
+	spec = {
+		{
+			"nvimtools/none-ls.nvim",
+			ft = "lua",
+			dependencies = { "nvim-lua/plenary.nvim" },
+			config = function()
+				local null_ls = require("null-ls")
+				null_ls.setup({
+					sources = {
+						null_ls.builtins.formatting.stylua,
+					},
+					on_attach = function(client, bufnr)
+						if client:supports_method("textDocument/formatting") then
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								group = vim.api.nvim_create_augroup("LspFormatting",
+									{ clear = true }),
+								buffer = bufnr,
+								callback = function()
+									vim.lsp.buf.format({ bufnr = bufnr })
+								end,
+							})
+						end
+					end,
+				})
+			end,
+		},
+		{
+			"cocopon/iceberg.vim",
+			config = function()
+				vim.api.nvim_create_autocmd("VimEnter", {
+					callback = function()
+						vim.cmd("colorscheme iceberg")
+						vim.api.nvim_set_hl(0, "Visual", { bg = "#3a4b5c", reverse = true })
+					end,
+				})
+			end,
+		},
+		{
+			"nvim-lualine/lualine.nvim",
+			config = function()
+				require("lualine").setup({
+					options = {
+						icons_enabled = false,
+						theme = "iceberg_dark",
+					},
+					sections = {
+						lualine_a = { "mode" },
+						lualine_b = {
+							{
+								function()
+									if vim.opt.paste:get() then
+										return "PASTE"
+									else
+										return ""
+									end
+								end,
+								color = { fg = "#ff00ff", gui = "bold" },
+							},
+							"branch",
+							"diff",
+							"diagnostics",
+						},
+						lualine_c = { "filename" },
+						lualine_x = { "fileformat", "filetype" },
+						lualine_y = { "progress" },
+						lualine_z = { "location" },
+					},
+				})
+			end,
+		},
+		{
+			"kyazdani42/nvim-tree.lua",
+			dependencies = "kyazdani42/nvim-web-devicons",
+			config = function()
+				vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeFindFile<CR>",
+					{ noremap = true, silent = true })
+				vim.api.nvim_set_keymap("n", "gj", ":NvimTreeFindFile<CR>",
+					{ noremap = true, silent = true })
+				require("nvim-tree").setup()
+			end,
+		},
+		{
+			"neovim/nvim-lspconfig",
+			config = function()
+				vim.lsp.config("*", {
+					capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				})
+				vim.lsp.config("lua_ls", {
+					settings = {
+						Lua = {
+							diagnostics = { globals = { "vim" } },
+							runtime = {
+								version = "LuaJIT",
+								path = vim.split(package.path, ";"),
+							},
+							workspace = {
+								library = {
+									[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+									[vim.fn.stdpath("config") .. "/lua"] = true,
+								},
+							},
+						},
+					},
+				})
+				vim.lsp.enable({ "rust_analyzer", "pyright", "lua_ls", "bashls" })
+			end,
+		},
+		{
+			"williamboman/mason.nvim",
+			config = function()
+				require("mason").setup()
+			end,
+		},
+		{
+			"williamboman/mason-lspconfig.nvim",
+			dependencies = { "williamboman/mason.nvim" },
+			config = function()
+				require("mason-lspconfig").setup({
+					ensure_installed = { "rust_analyzer", "pyright", "lua_ls", "bashls" },
+				})
+			end,
+		},
+		{
+			"hrsh7th/nvim-cmp",
+			dependencies = {
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+				"L3MON4D3/LuaSnip",
+			},
+			config = function()
+				local cmp = require("cmp")
+				cmp.setup({
+					snippet = {
+						expand = function(args)
+							require("luasnip").lsp_expand(args.body)
+						end,
+					},
+					mapping = cmp.mapping.preset.insert({
+						["<Tab>"] = cmp.mapping.select_next_item(),
+						["<S-Tab>"] = cmp.mapping.select_prev_item(),
+						["<CR>"] = cmp.mapping.confirm({ select = true }),
+					}),
+					sources = cmp.config.sources({
+						{ name = "nvim_lsp" },
+						{ name = "buffer" },
+						{ name = "path" },
+					}),
+				})
+			end,
+		},
+		{
+			"nvim-telescope/telescope.nvim",
+			branch = "0.1.x",
+			dependencies = { "nvim-lua/plenary.nvim" },
+			config = function()
+				local t = require("telescope.builtin")
+				local actions = require("telescope.actions")
+				vim.keymap.set("n", "<leader>k", t.live_grep)
+				vim.keymap.set("n", "gk", t.live_grep)
+				vim.keymap.set("n", "<leader>f", function()
+					t.find_files({ hidden = true })
+				end)
+				vim.keymap.set("n", "<leader>o", t.oldfiles)
+				vim.api.nvim_create_autocmd("FileType", {
+					pattern = "TelescopePrompt",
+					callback = function()
+						vim.keymap.set("n", "q", function()
+							local prompt_bufnr = vim.api.nvim_get_current_buf()
+							actions.close(prompt_bufnr)
+						end, { buffer = true })
+					end,
+				})
+			end,
+		},
+		{
+			"is0n/jaq-nvim",
+			dependencies = { "nvim-lua/plenary.nvim" },
+			config = function()
+				require("jaq-nvim").setup({
+					cmds = {
+						internal = {
+							lua = "luafile %",
+							vim = "source %",
+						},
+						external = {
+							python = "python3 %",
+							go = "go run %",
+							sh = "sh %",
+							ruby = "ruby %",
+							javascript = "node %",
+							rust = "cargo run --quiet %",
+						},
+					},
+					behavior = {
+						default = "float",
+						startinsert = true,
+						wincmd = false,
+						autosave = false,
+					},
+					ui = {
+						float = {
+							border = "none",
+							winhl = "Normal",
+							borderhl = "FloatBorder",
+							winblend = 0,
+							height = 0.8,
+							width = 0.8,
+							x = 0.5,
+							y = 0.5,
+						},
+						terminal = {
+							position = "bot",
+							size = 10,
+							line_no = false,
+						},
+						quickfix = {
+							position = "bot",
+							size = 10,
+						},
+					},
+				})
+				vim.keymap.set("n", "g<space>", ":<C-u>Jaq<CR>", { silent = true })
+			end,
+		},
+		"thinca/vim-visualstar",
+		{
+			"windwp/nvim-autopairs",
+			event = "InsertEnter",
+			config = function()
+				require("nvim-autopairs").setup({})
+			end,
+		},
+		{
+			"numToStr/Comment.nvim",
+			config = function()
+				require("Comment").setup()
+			end,
+		},
+		{
+			"kylechui/nvim-surround",
+			event = "VeryLazy",
+			config = function()
+				require("nvim-surround").setup({})
+			end,
+		},
+		"tpope/vim-fugitive",
+		"tpope/vim-rhubarb",
+		"vim-scripts/vcscommand.vim",
+		{
+			"zbirenbaum/copilot.lua",
+			event = "InsertEnter",
+			config = function()
+				require("copilot").setup({
+					suggestion = {
+						auto_trigger = true,
+						keymap = {
+							accept = "<C-l>",
+						},
+					},
+					filetypes = {
+						["*"] = true,
+					},
+				})
+			end,
+		},
 
-    {
-      "cespare/vim-toml",
-      ft = "toml",
-    },
+		{
+			"cespare/vim-toml",
+			ft = "toml",
+		},
 
-    {
-      "iamcco/markdown-preview.nvim",
-      ft = "markdown",
-      build = "cd app && yarn install",
-      config = function()
-        vim.g.mkdp_auto_start = 0
-        vim.g.mkdp_auto_close = 0
-        vim.g.mkdp_refresh_slow = 0
-        vim.g.mkdp_command_for_global = 0
-        vim.g.mkdp_open_to_the_world = 0
-        vim.g.mkdp_open_ip = ""
-        vim.g.mkdp_browser = ""
-        vim.g.mkdp_echo_preview_url = 0
-        vim.g.mkdp_browserfunc = ""
-        vim.g.mkdp_preview_options = {
-          mkit = {},
-          katex = {},
-          uml = {},
-          maid = {},
-          disable_sync_scroll = 0,
-          sync_scroll_type = "middle",
-          hide_yaml_meta = 1,
-          sequence_diagrams = {},
-        }
-        vim.g.mkdp_markdown_css = ""
-        vim.g.mkdp_highlight_css = ""
-        vim.g.mkdp_port = ""
-        vim.g.mkdp_page_title = "「${name}」"
-      end,
-    },
-    {
-      "chentoast/marks.nvim",
-      event = "VeryLazy",
-      opts = {},
-    },
-    {
-      "NvChad/nvim-colorizer.lua",
-      event = { "BufReadPost", "BufNewFile" },
-      config = function()
-        require("colorizer").setup({
-          filetypes = { "*" },
-          user_default_options = {
-            RGB = true, -- Highlight #RGB format
-            RRGGBB = true, -- Highlight #RRGGBB format
-            RRGGBBAA = true, -- Highlight #RRGGBBAA format
-            rgb_fn = true, -- Highlight CSS rgb() function
-            hsl_fn = true, -- Highlight CSS hsl() function
-            css = true, -- Highlight CSS variables
-            css_fn = true, -- Highlight CSS functions
-            mode = "background", -- Display as background color
-            tailwind = true, -- Support for Tailwind color names
-          },
-        })
-      end,
-    },
-  },
+		{
+			"chentoast/marks.nvim",
+			event = "VeryLazy",
+			opts = {},
+		},
+		{
+			"NvChad/nvim-colorizer.lua",
+			event = { "BufReadPost", "BufNewFile" },
+			config = function()
+				require("colorizer").setup({
+					filetypes = { "*" },
+					user_default_options = {
+						RGB = true, -- Highlight #RGB format
+						RRGGBB = true, -- Highlight #RRGGBB format
+						RRGGBBAA = true, -- Highlight #RRGGBBAA format
+						rgb_fn = true, -- Highlight CSS rgb() function
+						hsl_fn = true, -- Highlight CSS hsl() function
+						css = true, -- Highlight CSS variables
+						css_fn = true, -- Highlight CSS functions
+						mode = "background", -- Display as background color
+						tailwind = true, -- Support for Tailwind color names
+					},
+				})
+			end,
+		},
+	},
 })
 
 for _, opt in ipairs({
-  "termguicolors",
-  "number",
-  "showmatch",
-  "list",
-  "autoread",
-  "hidden",
-  "lazyredraw",
-  "autoindent",
-  "smartindent",
-  "smarttab",
-  "incsearch",
-  "hlsearch",
-  "smartcase",
-  "ttimeout",
+	"termguicolors",
+	"number",
+	"showmatch",
+	"list",
+	"autoread",
+	"hidden",
+	"lazyredraw",
+	"autoindent",
+	"smartindent",
+	"smarttab",
+	"incsearch",
+	"hlsearch",
+	"smartcase",
+	"ttimeout",
 }) do
-  vim.opt[opt] = true
+	vim.opt[opt] = true
 end
 
 for _, opt in ipairs({
-  "foldenable",
-  "backup",
-  "writebackup",
-  "swapfile",
-  "wrapscan",
-  "ignorecase",
+	"foldenable",
+	"backup",
+	"writebackup",
+	"swapfile",
+	"wrapscan",
+	"ignorecase",
 }) do
-  vim.opt[opt] = false
+	vim.opt[opt] = false
 end
 
 vim.opt.laststatus = 2
@@ -390,8 +363,8 @@ vim.opt.signcolumn = "yes"
 
 -- Move by display lines
 for _, mode in ipairs({ "n", "o", "x" }) do
-  vim.keymap.set(mode, "j", "gj", { silent = true })
-  vim.keymap.set(mode, "k", "gk", { silent = true })
+	vim.keymap.set(mode, "j", "gj", { silent = true })
+	vim.keymap.set(mode, "k", "gk", { silent = true })
 end
 
 vim.keymap.set("n", "<ESC><ESC>", ":nohlsearch<CR>", { silent = true })
@@ -415,20 +388,20 @@ vim.keymap.set("v", "F", ":'<,'>w !pbcopy<CR><CR>", { silent = true })
 vim.keymap.set("v", "v", "$h", { silent = true })
 
 local function paste_fenced_code_block()
-  local clipboard = vim.fn.getreg("+")
-  if clipboard == "" then
-    return
-  end
+	local clipboard = vim.fn.getreg("+")
+	if clipboard == "" then
+		return
+	end
 
-  clipboard = clipboard:gsub("\r\n", "\n"):gsub("\r", "\n"):gsub("\n+$", "")
-  local lines = vim.split(clipboard, "\n", { plain = true })
-  local row = vim.api.nvim_win_get_cursor(0)[1]
-  local fenced_lines = { "```" }
+	clipboard = clipboard:gsub("\r\n", "\n"):gsub("\r", "\n"):gsub("\n+$", "")
+	local lines = vim.split(clipboard, "\n", { plain = true })
+	local row = vim.api.nvim_win_get_cursor(0)[1]
+	local fenced_lines = { "```" }
 
-  vim.list_extend(fenced_lines, lines)
-  table.insert(fenced_lines, "```")
-  vim.api.nvim_buf_set_lines(0, row, row, true, fenced_lines)
-  vim.api.nvim_win_set_cursor(0, { row + #fenced_lines, 0 })
+	vim.list_extend(fenced_lines, lines)
+	table.insert(fenced_lines, "```")
+	vim.api.nvim_buf_set_lines(0, row, row, true, fenced_lines)
+	vim.api.nvim_win_set_cursor(0, { row + #fenced_lines, 0 })
 end
 
 vim.keymap.set("n", "<leader>x", paste_fenced_code_block, { silent = true })
@@ -498,84 +471,84 @@ vim.keymap.set("n", "sdl", "<C-w>l:bd!<CR>", { silent = true })
 
 -- Resize mode
 local function enter_resize_mode()
-  local opts = { noremap = true, silent = true, nowait = true }
-  vim.api.nvim_set_keymap("n", "h", "<C-w><", opts)
-  vim.api.nvim_set_keymap("n", "l", "<C-w>>", opts)
-  vim.api.nvim_set_keymap("n", "<CR>", ":lua _G.exit_resize_mode()<CR>", opts)
-  print("Entered resize mode: use h/l to resize left/right, press <CR> to exit")
+	local opts = { noremap = true, silent = true, nowait = true }
+	vim.api.nvim_set_keymap("n", "h", "<C-w><", opts)
+	vim.api.nvim_set_keymap("n", "l", "<C-w>>", opts)
+	vim.api.nvim_set_keymap("n", "<CR>", ":lua _G.exit_resize_mode()<CR>", opts)
+	print("Entered resize mode: use h/l to resize left/right, press <CR> to exit")
 end
 function _G.exit_resize_mode()
-  vim.api.nvim_del_keymap("n", "h")
-  vim.api.nvim_del_keymap("n", "l")
-  vim.api.nvim_del_keymap("n", "<CR>")
-  print("Exited resize mode")
+	vim.api.nvim_del_keymap("n", "h")
+	vim.api.nvim_del_keymap("n", "l")
+	vim.api.nvim_del_keymap("n", "<CR>")
+	print("Exited resize mode")
 end
 
 vim.keymap.set("n", "<C-e>", function()
-  enter_resize_mode()
+	enter_resize_mode()
 end, { noremap = true, silent = true })
 
 -- Open GitHub URL
 vim.keymap.set({ "n", "v" }, "gt", function()
-  local filepath = vim.fn.systemlist("readlink -f " .. vim.fn.expand("%:p"))[1]
-  local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-  if filepath == "" or git_root == "" then
-    print("Not a Git repository")
-    return
-  end
-  local relpath = vim.fn.fnamemodify(filepath, ":~:.")
-  local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
-  local repo_url = vim.fn
-    .systemlist("git config --get remote.origin.url")[1]
-    :gsub("ssh://git@github.com/", "https://github.com/")
-    :gsub("%.git$", "")
-  local line_spec = ""
-  local mode = vim.fn.mode()
-  if mode == "v" or mode == "V" or mode == "\22" then -- visual, visual-line, visual-block
-    local start_line = vim.fn.line("v")
-    local end_line = vim.fn.line(".")
-    if start_line > end_line then
-      start_line, end_line = end_line, start_line
-    end
-    line_spec = string.format("#L%d-L%d", start_line, end_line)
-  else
-    local line_number = vim.fn.line(".")
-    line_spec = string.format("#L%d", line_number)
-  end
-  local url = string.format("%s/blob/%s/%s%s", repo_url, branch, relpath, line_spec)
-  print("Opening " .. url)
-  vim.fn.jobstart({ "open", url }, { detach = true })
+	local filepath = vim.fn.systemlist("readlink -f " .. vim.fn.expand("%:p"))[1]
+	local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+	if filepath == "" or git_root == "" then
+		print("Not a Git repository")
+		return
+	end
+	local relpath = vim.fn.fnamemodify(filepath, ":~:.")
+	local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
+	local repo_url = vim.fn
+	    .systemlist("git config --get remote.origin.url")[1]
+	    :gsub("ssh://git@github.com/", "https://github.com/")
+	    :gsub("%.git$", "")
+	local line_spec = ""
+	local mode = vim.fn.mode()
+	if mode == "v" or mode == "V" or mode == "\22" then -- visual, visual-line, visual-block
+		local start_line = vim.fn.line("v")
+		local end_line = vim.fn.line(".")
+		if start_line > end_line then
+			start_line, end_line = end_line, start_line
+		end
+		line_spec = string.format("#L%d-L%d", start_line, end_line)
+	else
+		local line_number = vim.fn.line(".")
+		line_spec = string.format("#L%d", line_number)
+	end
+	local url = string.format("%s/blob/%s/%s%s", repo_url, branch, relpath, line_spec)
+	print("Opening " .. url)
+	vim.fn.jobstart({ "open", url }, { detach = true })
 end)
 
 -- FileType autocommands
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "gitcommit",
-  callback = function()
-    vim.opt_local.foldenable = false
-    vim.opt_local.tw = 0
-    vim.opt_local.wrap = true
-    vim.opt_local.formatoptions = ""
-  end,
+	pattern = "gitcommit",
+	callback = function()
+		vim.opt_local.foldenable = false
+		vim.opt_local.tw = 0
+		vim.opt_local.wrap = true
+		vim.opt_local.formatoptions = ""
+	end,
 })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "qf",
-  callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-w><CR><C-w>T", { noremap = true, silent = true })
-  end,
+	pattern = "qf",
+	callback = function()
+		vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-w><CR><C-w>T", { noremap = true, silent = true })
+	end,
 })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "sh", "bash", "rust", "python" },
-  callback = function()
-    vim.opt_local.expandtab = true
-    vim.opt_local.shiftwidth = 4
-    vim.opt_local.tabstop = 4
-  end,
+	pattern = { "sh", "bash", "rust", "python" },
+	callback = function()
+		vim.opt_local.expandtab = true
+		vim.opt_local.shiftwidth = 4
+		vim.opt_local.tabstop = 4
+	end,
 })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "json" },
-  callback = function()
-    vim.opt_local.expandtab = true
-    vim.opt_local.shiftwidth = 2
-    vim.opt_local.tabstop = 2
-  end,
+	pattern = { "json" },
+	callback = function()
+		vim.opt_local.expandtab = true
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.tabstop = 2
+	end,
 })
